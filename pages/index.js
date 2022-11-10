@@ -1,7 +1,7 @@
 import Head from 'next/Head';
 import Menu from '../components/Menu';
 
-function Home(){
+function Home({data}){
     return(
         <div>
             <Head>
@@ -19,15 +19,15 @@ function Home(){
                 <div className='max-width'>
                     <div className='top-content'>
                         <div className='text-1'>
-                            Temos a solução
+                            {data.dataHome.text_one}
                         </div>
                         <div className='text-2'>
-                            que a sua empresa precisa
+                            {data.dataHome.text_two}
                         </div>
                         <div className='text-3'>
-                            Podemos ajudar a sua empresa!
+                            {data.dataHome.text_three}
                         </div>
-                        <a href='/contato'>Entrar em Contato</a>
+                        <a href={data.dataHome.btn_link}>{data.dataHome.btn_title}</a>
                     </div>
                 </div>
             </section>
@@ -39,6 +39,14 @@ function Home(){
            
         </div>
     )
+}
+
+export async function getServerSideProps(){
+    const response = await fetch(`http://localhost:8080/`);
+    const data = await response.json();
+    //console.log(data);
+
+    return { props:{data}};
 }
 
 export default Home;
