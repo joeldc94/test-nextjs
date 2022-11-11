@@ -1,9 +1,10 @@
-import Link from "next/link"
-
+//import Link from "next/link"
+/*
 const linkStyle = {
     marginTop: 15,
     marginRight: 15
 }
+*/
 
 const Menu = () => (
     <div>
