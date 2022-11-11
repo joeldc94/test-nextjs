@@ -1,5 +1,8 @@
+//const { config } = require('dotenv');
 import Head from 'next/Head';
 import Menu from '../components/Menu';
+
+//config();
 
 function Home({data}){
     return(
@@ -41,7 +44,8 @@ function Home({data}){
 }
 
 export async function getServerSideProps(){
-    const response = await fetch(`http://localhost:8080/`);
+    //const response = await fetch(`https://test-nodejs-lyart.vercel.app/`);
+    const response = await fetch(process.env.SERVER_URL);
     const data = await response.json();
     //console.log(data);
 

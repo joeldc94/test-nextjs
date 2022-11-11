@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import Head from 'next/Head';
 import Menu from '../components/Menu';
@@ -20,14 +21,22 @@ function Home(){
 
     const sendContact = async e => {
         e.preventDefault(); //indica que não deve recarregar a página
-        console.log(dataForm);
+        //console.log(dataForm);
 
         try{
-            const res = await fetch('http://localhost:8080/add-msg-contact', {
+            /*const res = await fetch('http://localhost:8080/add-msg-contact', {
+                method: 'POST',
+                body: JSON.stringify(dataForm),
+                headers: { 'Content-Type': 'application/json' }
+            });*/
+            //const url = process.env.SERVER_URL + '/add-msg-contact';
+            //console.log(url);
+            const res = await fetch('https://test-nodejs-lyart.vercel.app/add-msg-contact', {
                 method: 'POST',
                 body: JSON.stringify(dataForm),
                 headers: { 'Content-Type': 'application/json' }
             });
+
 
             const responseEnv = await res.json();
 
@@ -55,6 +64,7 @@ function Home(){
                 type:'error',
                 mensagem:'Erro, tente novamente mais tarde.'
             });
+            console.log(err);
         }
     }
 
