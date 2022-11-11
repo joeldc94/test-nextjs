@@ -99,7 +99,8 @@ section{
 .top{
     color:#09253C;
     display: flex;
-    background: url("../public/banner_top.jpg");
+    /*background: url("../public/banner_top.jpg");*/
+    background: url("https://raw.githubusercontent.com/joeldc94/test-nextjs/master/public/banner_top.jpg");
     height: 100vh;
     min-height: 500px;
     background-size: cover;
