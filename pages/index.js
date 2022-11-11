@@ -1,5 +1,5 @@
 //const { config } = require('dotenv');
-import Head from 'next/Head';
+import Head from 'next/head';
 import Menu from '../components/Menu';
 
 //config();

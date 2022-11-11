@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import Head from 'next/Head';
+import Head from 'next/head';
 import Menu from '../components/Menu';
 
 function Home(){
