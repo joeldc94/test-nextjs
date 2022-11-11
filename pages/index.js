@@ -44,8 +44,8 @@ function Home({data}){
 }
 
 export async function getServerSideProps(){
-    //const response = await fetch(`https://test-nodejs-lyart.vercel.app/`);
-    const response = await fetch(process.env.SERVER_URL);
+    const response = await fetch(`https://test-nodejs-lyart.vercel.app/`);
+    //const response = await fetch(process.env.SERVER_URL);
     const data = await response.json();
     //console.log(data);
 
