@@ -10,9 +10,6 @@ function Home({data}){
                 <meta name="description" content="Site em desenvolvimento em Next.js"/>
                 <meta name="author" content="Joel De Conto"/>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
-                
-                
-                
                 <title>Testes com Next.js: Home</title>
             </Head>
 
