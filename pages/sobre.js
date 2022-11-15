@@ -37,7 +37,7 @@ function Sobre(){
             
             */
             
-            const res = await fetch(process.env.SERVER_URL + '/nr04-sesmt-consulta', {
+            const res = await fetch(process.env.SERVER_URL + 'nr04-sesmt-consulta', {
                 method: 'POST',
                 body: JSON.stringify(dataForm),
                 headers: { 'Content-Type': 'application/json' }

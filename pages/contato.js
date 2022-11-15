@@ -30,7 +30,7 @@ function Home(){
             });*/
             //const url = process.env.SERVER_URL + '/add-msg-contact';
             //console.log(url);
-            const res = await fetch('https://test-nodejs-lyart.vercel.app/add-msg-contact', {
+            const res = await fetch(process.env.SERVER_URL + 'add-msg-contact', {
                 method: 'POST',
                 body: JSON.stringify(dataForm),
                 headers: { 'Content-Type': 'application/json' }
