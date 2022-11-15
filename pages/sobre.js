@@ -31,9 +31,10 @@ function Sobre(){
             //const url = process.env.SERVER_URL + '/add-msg-contact';
             //console.log(url);
             //http://test-nodejs-git-nr04-form-joeldc94.vercel.app/
+            
             */
             
-            const res = await fetch('http://test-nodejs-git-nr04-form-joeldc94.vercel.app/nr04-sesmt-consulta', {
+            const res = await fetch('http://test-nodejs-8kd4sqoy4-joeldc94.vercel.app/nr04-sesmt-consulta', {
                 method: 'POST',
                 body: JSON.stringify(dataForm),
                 headers: { 'Content-Type': 'application/json' }
