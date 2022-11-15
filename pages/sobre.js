@@ -2,6 +2,9 @@ import { useState } from 'react';
 import Head from 'next/head';
 import Menu from '../components/Menu';
 
+//const SERVER_URL='https://test-nodejs-8kd4sqoy4-joeldc94.vercel.app'
+
+
 function Sobre(){
 
     const [dataForm, setDataForm] = useState({
@@ -34,7 +37,7 @@ function Sobre(){
             
             */
             
-            const res = await fetch('https://test-nodejs-8kd4sqoy4-joeldc94.vercel.app/nr04-sesmt-consulta', {
+            const res = await fetch(process.env.SERVER_URL + '/nr04-sesmt-consulta', {
                 method: 'POST',
                 body: JSON.stringify(dataForm),
                 headers: { 'Content-Type': 'application/json' }
