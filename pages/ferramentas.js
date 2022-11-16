@@ -5,16 +5,29 @@ import Menu from '../components/Menu';
 //const SERVER_URL='https://test-nodejs-8kd4sqoy4-joeldc94.vercel.app'
 
 
-function Sobre(){
+function Ferramentas(){
 
     const [dataForm, setDataForm] = useState({
-        grau_risco: '',
-        faixa_trabalhadores: ''        
+        codigo_cnae: '',
+        numero_trabalhadores: ''        
     });
 
     const [response, setResponse] = useState({
         type: '',
         mensagem: ''
+    })
+
+    var [respostaDadosNR, setRespostaDadosNR] = useState({
+        cod_cnae: '',
+        desc_cnae: '',
+        grau_risco: '',
+        nro_trabalhadores: '',
+        faixa_nro_trabalhadores: '',
+        nro_tecnico_seg: '',
+        nro_engenheiro_seg: '',
+        nro_aux_tec_enfermagem: '',
+        nro_enfermeiro: '',
+        nro_medico: ''
     })
     
 
@@ -25,59 +38,54 @@ function Sobre(){
         //console.log(dataForm);
 
         try{
-            /*
-            const res = await fetch('http://localhost:8080/nr04-sesmt-consulta', {
-                method: 'POST',
-                body: JSON.stringify(dataForm),
-                headers: { 'Content-Type': 'application/json' }
-            });
-            //const url = process.env.SERVER_URL + '/add-msg-contact';
-            //console.log(url);
-            //http://test-nodejs-git-nr04-form-joeldc94.vercel.app/
-            
-            */
-            
             const res = await fetch(process.env.SERVER_URL + 'nr04-sesmt-consulta', {
                 method: 'POST',
                 body: JSON.stringify(dataForm),
                 headers: { 'Content-Type': 'application/json' }
             });
+            //console.log(dataForm);
             
-            
-            
-
-
             const responseEnv = await res.json();
-            console.log(responseEnv.sesmt_table[0]);
-
+            console.log(responseEnv.denominacaoCnaeConsultada);
+            //console.log(responseEnv.sesmt_table[0]);
             
             if(responseEnv.erro){
                 setResponse({
                     type:'error',
                     //mensagem: responseEnv.mensagem
-                    mensagem: 'Falha ao coletar dados'
-                        
+                    mensagem: 'Falha ao coletar dados'                        
                 });
             }
             else{
                 setResponse({
                     type:'success',
                     //mensagem: responseEnv.mensagem
-                    mensagem: 
-                    
+                    mensagem:
+                        'COMPOSIÇÃO DO SESMT: ' +                   
                         'grau_risco: ' + responseEnv.sesmt_table[0].grau_risco +
-                        ',nro_trabalhadores: ' + responseEnv.sesmt_table[0].nro_trabalhadores +
-                        ',tecnico_seg: ' + responseEnv.sesmt_table[0].tecnico_seg +
-                        ',engenheiro_seg: ' + responseEnv.sesmt_table[0].engenheiro_seg +
-                        ',aux_tec_enfermagem: ' + responseEnv.sesmt_table[0].aux_tec_enfermagem +
-                        ',enfermeiro: ' + responseEnv.sesmt_table[0].enfermeiro +
-                        ',medico :' + responseEnv.sesmt_table[0].medico
-                    
+                        'nro_trabalhadores: entre ' + responseEnv.sesmt_table[0].nro_trabalhadores_min + ' e ' + responseEnv.sesmt_table[0].nro_trabalhadores_max +
+                        'tecnico_seg: ' + responseEnv.sesmt_table[0].tecnico_seg +
+                        'engenheiro_seg: ' + responseEnv.sesmt_table[0].engenheiro_seg +
+                        'aux_tec_enfermagem: ' + responseEnv.sesmt_table[0].aux_tec_enfermagem +
+                        'enfermeiro: ' + responseEnv.sesmt_table[0].enfermeiro +
+                        'medico: ' + responseEnv.sesmt_table[0].medico                    
                 });
                 setDataForm({
-                    grau_risco: '',
-                    faixa_trabalhadores: ''
-                })
+                    codigo_cnae: '',
+                    numero_trabalhadores: ''
+                });
+                setRespostaDadosNR({
+                    cod_cnae: responseEnv.codigoCnaeConsultado,
+                    desc_cnae: responseEnv.denominacaoCnaeConsultada,
+                    grau_risco: responseEnv.sesmt_table[0].grau_risco,
+                    nro_trabalhadores: responseEnv.numero_trabalhadores_inserido,
+                    faixa_nro_trabalhadores: 'entre ' + responseEnv.sesmt_table[0].nro_trabalhadores_min + ' e ' + responseEnv.sesmt_table[0].nro_trabalhadores_max,
+                    nro_tecnico_seg: responseEnv.sesmt_table[0].tecnico_seg,
+                    nro_engenheiro_seg: responseEnv.sesmt_table[0].engenheiro_seg,
+                    nro_aux_tec_enfermagem: responseEnv.sesmt_table[0].aux_tec_enfermagem,
+                    nro_enfermeiro: responseEnv.sesmt_table[0].enfermeiro,
+                    nro_medico: responseEnv.sesmt_table[0].medico
+                });
             }
 
         }catch(err){
@@ -153,15 +161,16 @@ function Sobre(){
                             <div className='text'>
                                 Consulta NR04: Equipe SESMT
                             </div>
+
                             <form onSubmit={sendInfo}>
                                 <div className='fields'>
                                     <div className='field name'>
-                                        <input type="text" name="grau_risco" placeholder="Digite o Grau de Risco" onChange={onChangeInput} value={dataForm.grau_risco} />
+                                        <input type="text" name="codigo_cnae" placeholder="Digite o CNAE da empresa" onChange={onChangeInput} value={dataForm.codigo_cnae} />
                                     </div>
                                 </div>
                                 <div className='fields'>
                                     <div className='field email'>
-                                        <input type="text" name="faixa_trabalhadores" placeholder="Digite o número de funcionários" onChange={onChangeInput} value={dataForm.faixa_trabalhadores} />
+                                        <input type="number" name="numero_trabalhadores" placeholder="Digite o número de funcionários" onChange={onChangeInput} value={dataForm.numero_trabalhadores} />
                                     </div>
                                 </div>
                                 
@@ -172,7 +181,23 @@ function Sobre(){
                             </form>
 
                             {response.type === 'error' ? <p className='alert-danger'>{response.mensagem}</p> : ""}
-                            {response.type === 'success' ? <p className='alert-success'>{response.mensagem}</p> : ""}
+                            {response.type === 'success' ? <div className='alert-success'>
+                                <h3>CARACTERÍSTICA DA EMPRESA:</h3>
+                                <ul>
+                                    <li>CNAE consultado: {respostaDadosNR.cod_cnae};</li>
+                                    <li>Denominação do CNAE: {respostaDadosNR.desc_cnae}</li>
+                                    <li>Grau de Risco da Empresa: {respostaDadosNR.grau_risco};</li>
+                                    <li>Quantidade de Trabalhadores: {respostaDadosNR.nro_trabalhadores} ({respostaDadosNR.faixa_nro_trabalhadores});</li>
+                                </ul><br></br>
+                                <h3>EQUIPE SESMT NECESSÁRIA:</h3>
+                                <ul>
+                                    <li>Técnicos de Segurança: {respostaDadosNR.nro_tecnico_seg};</li>
+                                    <li>Engenheiros de Segurança: {respostaDadosNR.nro_engenheiro_seg};</li>
+                                    <li>Auxiliares/Técnicos de Enfermagem: {respostaDadosNR.nro_aux_tec_enfermagem};</li>
+                                    <li>Enfermeiros: {respostaDadosNR.nro_enfermeiro};</li>
+                                    <li>Médicos: {respostaDadosNR.nro_medico}.</li>
+                                </ul>
+                            </div> : ""}
 
 
                         </div>
@@ -189,7 +214,7 @@ function Sobre(){
     )
 }
 
-export default Sobre;
+export default Ferramentas;
 
 /*
                             {response.type === 'error' ? <p className='alert-danger'>{response.mensagem}</p> : ""}
