@@ -22,12 +22,15 @@ function Ferramentas(){
         desc_cnae: '',
         grau_risco: '',
         nro_trabalhadores: '',
-        faixa_nro_trabalhadores: '',
+        faixa_nro_trabalhadores_sesmt: '',
         nro_tecnico_seg: '',
         nro_engenheiro_seg: '',
         nro_aux_tec_enfermagem: '',
         nro_enfermeiro: '',
-        nro_medico: ''
+        nro_medico: '',
+        faixa_nro_trabalhadores_cipa: '',
+        cipa_efetivos: '',
+        cipa_suplentes: ''
     })
     
 
@@ -38,22 +41,21 @@ function Ferramentas(){
         //console.log(dataForm);
 
         try{
-            const res = await fetch(process.env.SERVER_URL + 'nr04-sesmt-consulta', {
+            const res = await fetch(process.env.SERVER_URL + 'nr04-05-consulta', {
                 method: 'POST',
                 body: JSON.stringify(dataForm),
                 headers: { 'Content-Type': 'application/json' }
             });
             //console.log(dataForm);
             
-            const responseEnv = await res.json();
-            console.log(responseEnv.denominacaoCnaeConsultada);
+            const retorno = await res.json();
+            console.log(retorno.respostaConsultaTabelas);
             //console.log(responseEnv.sesmt_table[0]);
             
-            if(responseEnv.erro){
+            if(retorno.respostaConsultaTabelas.erro){
                 setResponse({
                     type:'error',
-                    //mensagem: responseEnv.mensagem
-                    mensagem: 'Falha ao coletar dados'                        
+                    mensagem: retorno.respostaConsultaTabelas.mensagem                        
                 });
             }
             else{
@@ -62,45 +64,42 @@ function Ferramentas(){
                     //mensagem: responseEnv.mensagem
                     mensagem:
                         'COMPOSIÇÃO DO SESMT: ' +                   
-                        'grau_risco: ' + responseEnv.sesmt_table[0].grau_risco +
-                        'nro_trabalhadores: entre ' + responseEnv.sesmt_table[0].nro_trabalhadores_min + ' e ' + responseEnv.sesmt_table[0].nro_trabalhadores_max +
-                        'tecnico_seg: ' + responseEnv.sesmt_table[0].tecnico_seg +
-                        'engenheiro_seg: ' + responseEnv.sesmt_table[0].engenheiro_seg +
-                        'aux_tec_enfermagem: ' + responseEnv.sesmt_table[0].aux_tec_enfermagem +
-                        'enfermeiro: ' + responseEnv.sesmt_table[0].enfermeiro +
-                        'medico: ' + responseEnv.sesmt_table[0].medico                    
+                        'grau_risco: ' + retorno.respostaConsultaTabelas.grauDeRisco +
+                        'nro_trabalhadores: entre ' + retorno.respostaConsultaTabelas.nroTrabalhadoresMinSesmt + ' e ' + retorno.respostaConsultaTabelas.nroTrabalhadoresMaxSesmt  +
+                        'tecnico_seg: ' + retorno.respostaConsultaTabelas.tecnicoSeg +
+                        'engenheiro_seg: ' + retorno.respostaConsultaTabelas.engenheiroSeg +
+                        'aux_tec_enfermagem: ' + retorno.respostaConsultaTabelas.auxTecEnfermagem +
+                        'enfermeiro: ' + retorno.respostaConsultaTabelas.enfermeiro +
+                        'medico: ' + retorno.respostaConsultaTabelas.medico                 
                 });
                 setDataForm({
                     codigo_cnae: '',
                     numero_trabalhadores: ''
                 });
                 setRespostaDadosNR({
-                    cod_cnae: responseEnv.codigoCnaeConsultado,
-                    desc_cnae: responseEnv.denominacaoCnaeConsultada,
-                    grau_risco: responseEnv.sesmt_table[0].grau_risco,
-                    nro_trabalhadores: responseEnv.numero_trabalhadores_inserido,
-                    faixa_nro_trabalhadores: 'entre ' + responseEnv.sesmt_table[0].nro_trabalhadores_min + ' e ' + responseEnv.sesmt_table[0].nro_trabalhadores_max,
-                    nro_tecnico_seg: responseEnv.sesmt_table[0].tecnico_seg,
-                    nro_engenheiro_seg: responseEnv.sesmt_table[0].engenheiro_seg,
-                    nro_aux_tec_enfermagem: responseEnv.sesmt_table[0].aux_tec_enfermagem,
-                    nro_enfermeiro: responseEnv.sesmt_table[0].enfermeiro,
-                    nro_medico: responseEnv.sesmt_table[0].medico
+                    cod_cnae: retorno.respostaConsultaTabelas.cnae,
+                    desc_cnae: retorno.respostaConsultaTabelas.denominacao,
+                    grau_risco: retorno.respostaConsultaTabelas.grauDeRisco,
+                    nro_trabalhadores: retorno.respostaConsultaTabelas.nroTrabalhadores,
+                    faixa_nro_trabalhadores_sesmt: 'entre ' + retorno.respostaConsultaTabelas.nroTrabalhadoresMinSesmt + ' e ' + retorno.respostaConsultaTabelas.nroTrabalhadoresMaxSesmt,
+                    nro_tecnico_seg: retorno.respostaConsultaTabelas.tecnicoSeg,
+                    nro_engenheiro_seg: retorno.respostaConsultaTabelas.engenheiroSeg,
+                    nro_aux_tec_enfermagem: retorno.respostaConsultaTabelas.auxTecEnfermagem,
+                    nro_enfermeiro: retorno.respostaConsultaTabelas.enfermeiro,
+                    nro_medico: retorno.respostaConsultaTabelas.medico,
+                    faixa_nro_trabalhadores_cipa: 'entre ' + retorno.respostaConsultaTabelas.nroTrabalhadoresMinCipa + ' e ' + retorno.respostaConsultaTabelas.nroTrabalhadoresMaxCipa,
+                    cipa_efetivos: retorno.respostaConsultaTabelas.cipaEfetivos,
+                    cipa_suplentes: retorno.respostaConsultaTabelas.cipaSuplentes
                 });
             }
-
-        }catch(err){
-            
+        }catch(err){            
             setResponse({
                 type:'error',
-                mensagem:'Erro, tente novamente mais tarde.'
-            });
-            
+                mensagem:'Erro: não foi possível realizar a consulta. Tente novamente mais tarde.'
+            });            
             console.log(err);
         }
     }
-
-
-
     return(
         <div>
             <Head>
@@ -187,7 +186,7 @@ function Ferramentas(){
                                     <li>CNAE consultado: {respostaDadosNR.cod_cnae};</li>
                                     <li>Denominação do CNAE: {respostaDadosNR.desc_cnae}</li>
                                     <li>Grau de Risco da Empresa: {respostaDadosNR.grau_risco};</li>
-                                    <li>Quantidade de Trabalhadores: {respostaDadosNR.nro_trabalhadores} ({respostaDadosNR.faixa_nro_trabalhadores});</li>
+                                    <li>Quantidade de Trabalhadores: {respostaDadosNR.nro_trabalhadores} ({respostaDadosNR.faixa_nro_trabalhadores_sesmt});</li>
                                 </ul><br></br>
                                 <h3>EQUIPE SESMT NECESSÁRIA:</h3>
                                 <ul>
@@ -196,6 +195,11 @@ function Ferramentas(){
                                     <li>Auxiliares/Técnicos de Enfermagem: {respostaDadosNR.nro_aux_tec_enfermagem};</li>
                                     <li>Enfermeiros: {respostaDadosNR.nro_enfermeiro};</li>
                                     <li>Médicos: {respostaDadosNR.nro_medico}.</li>
+                                </ul><br></br>
+                                <h3>EQUIPE CIPA NECESSÁRIA:</h3>
+                                <ul>
+                                    <li>Membros da equipe efetiva: {respostaDadosNR.cipa_efetivos};</li>
+                                    <li>Membros da equipe suplente {respostaDadosNR.cipa_suplentes}.</li>
                                 </ul>
                             </div> : ""}
 
