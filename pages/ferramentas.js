@@ -8,8 +8,9 @@ import Menu from '../components/Menu';
 function Ferramentas(){
 
     const [dataForm, setDataForm] = useState({
-        codigo_cnae: '',
-        numero_trabalhadores: ''        
+        codigo_cnae1: '',
+        codigo_cnae2: '',
+        numero_trabalhadores: ''
     });
 
     const [response, setResponse] = useState({
@@ -40,6 +41,27 @@ function Ferramentas(){
         e.preventDefault(); //indica que não deve recarregar a página
         //console.log(dataForm);
 
+        var nroFuncOk = false;
+        var nroCnaeOk = false;
+        var cnaeRegex = /^\d{1,2}\.\d{1,2}-\d{1}/;
+
+        //alert('Entrou no ENVIAR');
+
+        if(dataForm.codigo_cnae1.match(cnaeRegex) || dataForm.codigo_cnae2.match(cnaeRegex)){
+            nroCnaeOk = true;
+            if(dataForm.numero_trabalhadores != 0 || dataForm.numero_trabalhadores != ""){
+                nroFuncOk = true;
+            }
+            else{
+                alert('Erro: Insira o número de funcionários.');
+                return
+            }
+        }
+        else{
+            alert('Erro: Insira um código CNAE válido');
+            return
+        }
+
         try{
             const res = await fetch(process.env.SERVER_URL + 'nr04-05-consulta', {
                 method: 'POST',
@@ -62,6 +84,7 @@ function Ferramentas(){
                 setResponse({
                     type:'success',
                     //mensagem: responseEnv.mensagem
+                    /*
                     mensagem:
                         'COMPOSIÇÃO DO SESMT: ' +                   
                         'grau_risco: ' + retorno.respostaConsultaTabelas.grauDeRisco +
@@ -70,10 +93,13 @@ function Ferramentas(){
                         'engenheiro_seg: ' + retorno.respostaConsultaTabelas.engenheiroSeg +
                         'aux_tec_enfermagem: ' + retorno.respostaConsultaTabelas.auxTecEnfermagem +
                         'enfermeiro: ' + retorno.respostaConsultaTabelas.enfermeiro +
-                        'medico: ' + retorno.respostaConsultaTabelas.medico                 
+                        'medico: ' + retorno.respostaConsultaTabelas.medico     
+                        
+                    */
                 });
                 setDataForm({
-                    codigo_cnae: '',
+                    codigo_cnae1: '',
+                    codigo_cnae2: '',
                     numero_trabalhadores: ''
                 });
                 setRespostaDadosNR({
@@ -115,7 +141,7 @@ function Ferramentas(){
             <Menu/>
             <section className='contact'>
                 <div className='max-width'>
-                    <h2 className='title'>Consulta NR04</h2>
+                    <h2 className='title'>Consulta NR04 e NR05</h2>
                     <div className='contact-content'>
                         <div className='column left'>
                             <p>Texto aleatório de parágrafo texto aleatório de parágrafo texto aleatório de parágrafo texto aleatório de parágrafo texto aleatório de parágrafo texto </p>
@@ -158,13 +184,20 @@ function Ferramentas(){
 
                         <div className='column right'>
                             <div className='text'>
-                                Consulta NR04: Equipe SESMT
+                                Consultas: Equipes SESMT e CIPA
+                                
                             </div>
-
                             <form onSubmit={sendInfo}>
                                 <div className='fields'>
-                                    <div className='field name'>
-                                        <input type="text" name="codigo_cnae" placeholder="Digite o CNAE da empresa" onChange={onChangeInput} value={dataForm.codigo_cnae} />
+                                    <div className='field name tooltip'>
+                                        <span className='tooltiptext'>A atividade econômica principal é a constante no Cadastro Nacional de  Pessoa Jurídica - CNPJ.</span>
+                                        <input type="text" name="codigo_cnae1" placeholder="Digite o CNAE principal da empresa" onChange={onChangeInput} value={dataForm.codigo_cnae1} />
+                                    </div>
+                                </div>
+                                <div className='fields'>
+                                    <div className='field name tooltip'>
+                                        <span className='tooltiptext'>A atividade econômica preponderante é aquela que ocupa o maior número de trabalhadores.</span>
+                                        <input type="text" name="codigo_cnae2" placeholder="Digite o CNAE preponderante da empresa" onChange={onChangeInput} value={dataForm.codigo_cnae2} />
                                     </div>
                                 </div>
                                 <div className='fields'>
