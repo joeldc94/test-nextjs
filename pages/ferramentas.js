@@ -8,6 +8,7 @@ import Menu from '../components/Menu';
 function Ferramentas(){
 
     const [dataForm, setDataForm] = useState({
+        cnpj: '',
         codigo_cnae1: '',
         codigo_cnae2: '',
         numero_trabalhadores: ''
@@ -46,7 +47,14 @@ function Ferramentas(){
         var cnaeRegex = /^\d{1,2}\.\d{1,2}-\d{1}/;
 
         //alert('Entrou no ENVIAR');
-
+        if(dataForm.numero_trabalhadores != 0 || dataForm.numero_trabalhadores != ""){
+            nroFuncOk = true;
+        }
+        else{
+            alert('Erro: Insira o número de funcionários.');
+            return
+        }
+/*
         if(dataForm.codigo_cnae1.match(cnaeRegex) || dataForm.codigo_cnae2.match(cnaeRegex)){
             nroCnaeOk = true;
             if(dataForm.numero_trabalhadores != 0 || dataForm.numero_trabalhadores != ""){
@@ -60,7 +68,7 @@ function Ferramentas(){
         else{
             alert('Erro: Insira um código CNAE válido');
             return
-        }
+        }*/
 
         try{
             const res = await fetch(process.env.SERVER_URL + 'nr04-05-consulta', {
@@ -98,6 +106,7 @@ function Ferramentas(){
                     */
                 });
                 setDataForm({
+                    cnpj: '',
                     codigo_cnae1: '',
                     codigo_cnae2: '',
                     numero_trabalhadores: ''
@@ -188,6 +197,11 @@ function Ferramentas(){
                                 
                             </div>
                             <form onSubmit={sendInfo}>
+                                <div className='fields'>
+                                    <div className='field'>
+                                    <input type="text" name="cnpj" placeholder="Digite o CNPJ da empresa" onChange={onChangeInput} value={dataForm.cnpj} />
+                                    </div>
+                                </div>
                                 <div className='fields'>
                                     <div className='field name tooltip'>
                                         <span className='tooltiptext'>A atividade econômica principal é a constante no Cadastro Nacional de  Pessoa Jurídica - CNPJ.</span>
