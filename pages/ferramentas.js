@@ -2,9 +2,6 @@ import { useState } from 'react';
 import Head from 'next/head';
 import Menu from '../components/Menu';
 
-//const SERVER_URL='https://test-nodejs-8kd4sqoy4-joeldc94.vercel.app'
-
-
 function Ferramentas(){
 
     const [dataForm, setDataForm] = useState({
@@ -114,7 +111,7 @@ function Ferramentas(){
                 setRespostaDadosNR({
                     cod_cnae: retorno.respostaConsultaTabelas.cnae,
                     desc_cnae: retorno.respostaConsultaTabelas.denominacao,
-                    grau_risco: retorno.respostaConsultaTabelas.grauDeRisco,
+                    grau_risco: retorno.respostaConsultaTabelas.maiorGrauRisco,
                     nro_trabalhadores: retorno.respostaConsultaTabelas.nroTrabalhadores,
                     faixa_nro_trabalhadores_sesmt: 'entre ' + retorno.respostaConsultaTabelas.nroTrabalhadoresMinSesmt + ' e ' + retorno.respostaConsultaTabelas.nroTrabalhadoresMaxSesmt,
                     nro_tecnico_seg: retorno.respostaConsultaTabelas.tecnicoSeg,
