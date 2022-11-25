@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Head from 'next/head';
 import Menu from '../components/Menu';
+import FormCNPJ from '../components/FormCNPJ';
 
 function Ferramentas(){
 
@@ -8,7 +9,8 @@ function Ferramentas(){
         cnpj: '',
         codigo_cnae1: '',
         codigo_cnae2: '',
-        numero_trabalhadores: ''
+        numero_trabalhadores: '',
+        type: ''
     });
 
     const [response, setResponse] = useState({
@@ -36,6 +38,9 @@ function Ferramentas(){
     const onChangeInput = e => setDataForm({...dataForm, [e.target.name]: e.target.value});
 
     const sendInfo = async e => {
+
+        //console.log(dataForm.type);
+
         e.preventDefault(); //indica que não deve recarregar a página
         //console.log(dataForm);
 
@@ -51,6 +56,36 @@ function Ferramentas(){
             alert('Erro: Insira o número de funcionários.');
             return
         }
+
+        if(dataForm.type == 'cnpj'){
+            //const cnpjRegex = 
+            dataForm.codigo_cnae1 = '';
+            dataForm.codigo_cnae2 = '';
+
+        }else if(dataForm.type == 'cnae'){
+            if(dataForm.codigo_cnae1.match(cnaeRegex) || dataForm.codigo_cnae2.match(cnaeRegex)){
+                nroCnaeOk = true;
+                /*
+                if(dataForm.numero_trabalhadores != 0 || dataForm.numero_trabalhadores != ""){
+                    nroFuncOk = true;
+                }
+                else{
+                    alert('Erro: Insira o número de funcionários.');
+                    return
+                }
+                */
+               dataForm.cnpj = '';
+            }
+            else{
+                alert('Erro: Insira um código CNAE válido');
+                return
+            }
+        }else{
+            alert('Erro: Falha no envio do formulário');
+            return
+        }
+
+
 /*
         if(dataForm.codigo_cnae1.match(cnaeRegex) || dataForm.codigo_cnae2.match(cnaeRegex)){
             nroCnaeOk = true;
@@ -106,7 +141,8 @@ function Ferramentas(){
                     cnpj: '',
                     codigo_cnae1: '',
                     codigo_cnae2: '',
-                    numero_trabalhadores: ''
+                    numero_trabalhadores: '',
+                    type: ''
                 });
                 setRespostaDadosNR({
                     cod_cnae: retorno.respostaConsultaTabelas.cnae,
@@ -190,37 +226,52 @@ function Ferramentas(){
 
                         <div className='column right'>
                             <div className='text'>
-                                Consultas: Equipes SESMT e CIPA
+                                Consultas: Equipes SESMT e CIPA                                
+                            </div>
+                            <div>
+                                <button className='selecionaEntrada btnCNPJ' >Consultar com CNPJ</button>
+                                <button className='selecionaEntrada btnCNAE' >Consultar com CNAE</button>
                                 
                             </div>
-                            <form onSubmit={sendInfo}>
+                            
+                            <form className='formCNPJ' onSubmit={sendInfo}>
                                 <div className='fields'>
                                     <div className='field'>
-                                    <input type="text" name="cnpj" placeholder="Digite o CNPJ da empresa" onChange={onChangeInput} value={dataForm.cnpj} />
+                                    <input type="text" name="cnpj" data-mask="99.999.999/9999-99" placeholder="Digite o CNPJ da empresa" onChange={onChangeInput} value={dataForm.cnpj}/>
                                     </div>
                                 </div>
                                 <div className='fields'>
+                                    <div className='field email'>
+                                        <input type="number" name="numero_trabalhadores" placeholder="Digite o número de funcionários" onChange={onChangeInput} value={dataForm.numero_trabalhadores}/>
+                                    </div>
+                                </div>
+                                
+                                <div className='button-area'>
+                                    <button type="submit" onClick={()=>dataForm.type='cnpj'}>Enviar</button>
+                                </div>                                
+                            </form>
+
+                            <form className='formCNAE' onSubmit={sendInfo}>
+                                <div className='fields'>
                                     <div className='field name tooltip'>
                                         <span className='tooltiptext'>A atividade econômica principal é a constante no Cadastro Nacional de  Pessoa Jurídica - CNPJ.</span>
-                                        <input type="text" name="codigo_cnae1" placeholder="Digite o CNAE principal da empresa" onChange={onChangeInput} value={dataForm.codigo_cnae1} />
+                                        <input type="text" name="codigo_cnae1" placeholder="Digite o CNAE principal da empresa" onChange={onChangeInput} value={dataForm.codigo_cnae1}/>
                                     </div>
                                 </div>
                                 <div className='fields'>
                                     <div className='field name tooltip'>
                                         <span className='tooltiptext'>A atividade econômica preponderante é aquela que ocupa o maior número de trabalhadores.</span>
-                                        <input type="text" name="codigo_cnae2" placeholder="Digite o CNAE preponderante da empresa" onChange={onChangeInput} value={dataForm.codigo_cnae2} />
+                                        <input type="text" name="codigo_cnae2" placeholder="Digite o CNAE preponderante da empresa" onChange={onChangeInput} value={dataForm.codigo_cnae2}/>
                                     </div>
                                 </div>
                                 <div className='fields'>
                                     <div className='field email'>
-                                        <input type="number" name="numero_trabalhadores" placeholder="Digite o número de funcionários" onChange={onChangeInput} value={dataForm.numero_trabalhadores} />
+                                        <input type="number" name="numero_trabalhadores" placeholder="Digite o número de funcionários" onChange={onChangeInput} value={dataForm.numero_trabalhadores}/>
                                     </div>
                                 </div>
-                                
                                 <div className='button-area'>
-                                    <button type="submit">Enviar</button>
+                                    <button type="submit" onClick={()=>dataForm.type='cnae'}>Enviar</button>
                                 </div>
-                                
                             </form>
 
                             {response.type === 'error' ? <p className='alert-danger'>{response.mensagem}</p> : ""}
@@ -254,7 +305,6 @@ function Ferramentas(){
             </section>
 
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-            
             <script src="custom.js"></script>
          
            

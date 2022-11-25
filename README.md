@@ -33,3 +33,5 @@ Adicionar CSS:
             return <Component {...pageProps}/>
         }
 
+
+### npm i jquery-mask-plugin
