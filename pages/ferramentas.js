@@ -44,7 +44,7 @@ function Ferramentas(){
         e.preventDefault(); //indica que não deve recarregar a página
         //console.log(dataForm);
 
-        alert('CNPJ : ' + dataForm.cnpj);
+        //alert('CNPJ : ' + dataForm.cnpj);
 
         var nroFuncOk = false;
         var nroCnaeOk = false;
