@@ -44,6 +44,8 @@ function Ferramentas(){
         e.preventDefault(); //indica que não deve recarregar a página
         //console.log(dataForm);
 
+        alert('CNPJ : ' + dataForm.cnpj);
+
         var nroFuncOk = false;
         var nroCnaeOk = false;
         var cnaeRegex = /^\d{1,2}\.\d{1,2}-\d{1}/;
@@ -237,7 +239,7 @@ function Ferramentas(){
                             <form className='formCNPJ' onSubmit={sendInfo}>
                                 <div className='fields'>
                                     <div className='field'>
-                                    <input type="text" name="cnpj" data-mask="99.999.999/9999-99" placeholder="Digite o CNPJ da empresa" onChange={onChangeInput} value={dataForm.cnpj}/>
+                                    <input type="text" name="cnpj" data-mask="00.000.000/0000-00" reverse="false" placeholder="Digite o CNPJ da empresa" onChange={onChangeInput} value={dataForm.cnpj}/>
                                     </div>
                                 </div>
                                 <div className='fields'>
@@ -255,13 +257,13 @@ function Ferramentas(){
                                 <div className='fields'>
                                     <div className='field name tooltip'>
                                         <span className='tooltiptext'>A atividade econômica principal é a constante no Cadastro Nacional de  Pessoa Jurídica - CNPJ.</span>
-                                        <input type="text" name="codigo_cnae1" placeholder="Digite o CNAE principal da empresa" onChange={onChangeInput} value={dataForm.codigo_cnae1}/>
+                                        <input type="text" name="codigo_cnae1" placeholder="Digite o CNAE principal da empresa" data-mask="00.00-0-99" reverse="true" clearifnotmatch="false" onChange={onChangeInput} value={dataForm.codigo_cnae1}/>
                                     </div>
                                 </div>
                                 <div className='fields'>
                                     <div className='field name tooltip'>
                                         <span className='tooltiptext'>A atividade econômica preponderante é aquela que ocupa o maior número de trabalhadores.</span>
-                                        <input type="text" name="codigo_cnae2" placeholder="Digite o CNAE preponderante da empresa" onChange={onChangeInput} value={dataForm.codigo_cnae2}/>
+                                        <input type="text" name="codigo_cnae2" placeholder="Digite o CNAE preponderante da empresa" data-mask="00.00-0-99" clearifnotmatch="false" reverse="true" onChange={onChangeInput} value={dataForm.codigo_cnae2}/>
                                     </div>
                                 </div>
                                 <div className='fields'>
@@ -305,6 +307,7 @@ function Ferramentas(){
             </section>
 
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
             <script src="custom.js"></script>
          
            
