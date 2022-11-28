@@ -76,7 +76,11 @@ function Ferramentas(){
                     return
                 }
                 */
-               dataForm.cnpj = '';
+                dataForm.cnpj = '';
+                //ignora os dois ultimos digitos do codigo cnae se vier no formato 00.00-0-00
+                //se vier no formato 00.00-0 esta ok para consultar no db
+                dataForm.codigo_cnae1 = dataForm.codigo_cnae1.substring(0,7);
+                dataForm.codigo_cnae2 = dataForm.codigo_cnae2.substring(0,7);                
             }
             else{
                 alert('Erro: Insira um código CNAE válido');
