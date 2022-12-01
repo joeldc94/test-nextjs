@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Head from 'next/head';
 import Menu from '../components/Menu';
-import FormCNPJ from '../components/FormCNPJ';
+import AvisoTestes from '../components/AvisoTestes'
 
 function Ferramentas(){
 
@@ -175,6 +175,9 @@ function Ferramentas(){
             console.log(err);
         }
     }
+
+
+
     return(
         <div>
             <Head>
@@ -191,48 +194,24 @@ function Ferramentas(){
             <section className='contact'>
                 <div className='max-width'>
                     <h2 className='title'>Consulta NR04 e NR05</h2>
+                    <AvisoTestes/>
                     <div className='contact-content'>
+                        
                         <div className='column left'>
-                            <p>Texto aleatório de parágrafo texto aleatório de parágrafo texto aleatório de parágrafo texto aleatório de parágrafo texto aleatório de parágrafo texto </p>
-                            <div className='icons'>
-                                <div className='row'>
-                                    <i className="fa-solid fa-user"></i>
-                                    <div className='info'>
-                                        <div className='head'>
-                                            Empresa
-                                        </div>
-                                        <div className='sub-title'>
-                                            Previsio
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='row'>
-                                    <i className="fa-solid fa-map-location-dot"></i>
-                                    <div className='info'>
-                                        <div className='head'>
-                                            Endereço
-                                        </div>
-                                        <div className='sub-title'>
-                                            Rua Júlio de Castilhos, 45, bairro Niterói - Canoas/RS
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='row'>
-                                    <i className="fa-solid fa-envelope"></i>
-                                    <div className='info'>
-                                        <div className='head'>
-                                            E-mail
-                                        </div>
-                                        <div className='sub-title'>
-                                            joel@previsio.com.br
-                                        </div>
-                                    </div>
-                                </div>
+                            <div className='titulo-consulta'>
+                                NR04                             
                             </div>
+                            <p>Esta Norma estabelece os parâmetros e os requisitos para constituição e manutenção dos Serviços Especializados em Segurança e Medicina do Trabalho - SESMT, com a finalidade de promover a saúde e proteger a integridade do trabalhador</p>
+                            <a target="_blank" href="https://www.gov.br/trabalho-e-previdencia/pt-br/composicao/orgaos-especificos/secretaria-de-trabalho/inspecao/seguranca-e-saude-no-trabalho/normas-regulamentadoras/nr-04.pdf">&gt; Acesse a norma completa</a>
+                            <div className='titulo-consulta'>
+                                NR05                              
+                            </div>
+                            <p>Esta Norma estabelece os parâmetros e os requisitos da Comissão Interna de Prevenção de Acidentes – CIPA, tendo por objetivo a prevenção de acidentes e doenças relacionadas ao trabalho, de modo a tornar compatível, permanentemente, o trabalho com a preservação da vida e promoção da saúde do trabalhador.</p>
+                            <a target="_blank" href="https://www.gov.br/trabalho-e-previdencia/pt-br/composicao/orgaos-especificos/secretaria-de-trabalho/inspecao/seguranca-e-saude-no-trabalho/normas-regulamentadoras/nr-05-atualizada-2021-1.pdf">&gt; Acesse a norma completa</a>
                         </div>
 
                         <div className='column right'>
-                            <div className='text'>
+                            <div className='titulo-consulta'>
                                 Consultas: Equipes SESMT e CIPA                                
                             </div>
                             <div>
