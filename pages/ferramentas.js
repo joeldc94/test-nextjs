@@ -3,6 +3,9 @@ import Head from 'next/head';
 import Menu from '../components/Menu';
 import AvisoTestes from '../components/AvisoTestes'
 
+import RespostaErro from '../components/RespostaErro'
+import Footer from '../components/Footer';
+
 function Ferramentas(){
 
     const [dataForm, setDataForm] = useState({
@@ -19,6 +22,9 @@ function Ferramentas(){
     })
 
     var [respostaDadosNR, setRespostaDadosNR] = useState({
+        cnpj: '',
+        razaoSocial: '',
+        nomeFantasia: '',
         cod_cnae: '',
         desc_cnae: '',
         grau_risco: '',
@@ -151,9 +157,12 @@ function Ferramentas(){
                     numero_trabalhadores: '',
                     type: ''
                 });
-                setRespostaDadosNR({
-                    cod_cnae: retorno.respostaConsultaTabelas.cnae,
-                    desc_cnae: retorno.respostaConsultaTabelas.denominacao,
+                setRespostaDadosNR({                    
+                    cnpj: retorno.respostaConsultaTabelas.cnpj,
+                    razaoSocial: retorno.respostaConsultaTabelas.razaoSocial,
+                    nomeFantasia: retorno.respostaConsultaTabelas.nomeFantasia,
+                    cod_cnae: retorno.respostaConsultaTabelas.codigoCnae[0],
+                    desc_cnae: retorno.respostaConsultaTabelas.descricaoCnae[0],
                     grau_risco: retorno.respostaConsultaTabelas.maiorGrauRisco,
                     nro_trabalhadores: retorno.respostaConsultaTabelas.nroTrabalhadores,
                     faixa_nro_trabalhadores_sesmt: 'entre ' + retorno.respostaConsultaTabelas.nroTrabalhadoresMinSesmt + ' e ' + retorno.respostaConsultaTabelas.nroTrabalhadoresMaxSesmt,
@@ -174,6 +183,7 @@ function Ferramentas(){
             });            
             console.log(err);
         }
+        document.getElementById("resultado-consulta").scrollIntoView({behavior: 'smooth'})
     }
 
 
@@ -198,22 +208,23 @@ function Ferramentas(){
                     <div className='contact-content'>
                         
                         <div className='column left'>
-                            <div className='titulo-consulta'>
-                                NR04                             
+                            <div className='bloco-explicacao'>
+                                <h3 className='titulo-consulta'>NR04</h3>
+                                <p>Esta Norma estabelece os parâmetros e os requisitos para constituição e manutenção dos Serviços Especializados em Segurança e Medicina do Trabalho - SESMT, com a finalidade de promover a saúde e proteger a integridade do trabalhador</p>
+                                <a target="_blank" href="https://www.gov.br/trabalho-e-previdencia/pt-br/composicao/orgaos-especificos/secretaria-de-trabalho/inspecao/seguranca-e-saude-no-trabalho/normas-regulamentadoras/nr-04.pdf">&gt; Acesse a norma completa</a>
                             </div>
-                            <p>Esta Norma estabelece os parâmetros e os requisitos para constituição e manutenção dos Serviços Especializados em Segurança e Medicina do Trabalho - SESMT, com a finalidade de promover a saúde e proteger a integridade do trabalhador</p>
-                            <a target="_blank" href="https://www.gov.br/trabalho-e-previdencia/pt-br/composicao/orgaos-especificos/secretaria-de-trabalho/inspecao/seguranca-e-saude-no-trabalho/normas-regulamentadoras/nr-04.pdf">&gt; Acesse a norma completa</a>
-                            <div className='titulo-consulta'>
-                                NR05                              
+                            <div className='bloco-explicacao'>
+                                <h3 className='titulo-consulta'>NR05</h3>
+                                <p>Esta Norma estabelece os parâmetros e os requisitos da Comissão Interna de Prevenção de Acidentes – CIPA, tendo por objetivo a prevenção de acidentes e doenças relacionadas ao trabalho, de modo a tornar compatível, permanentemente, o trabalho com a preservação da vida e promoção da saúde do trabalhador.</p>
+                                <a target="_blank" href="https://www.gov.br/trabalho-e-previdencia/pt-br/composicao/orgaos-especificos/secretaria-de-trabalho/inspecao/seguranca-e-saude-no-trabalho/normas-regulamentadoras/nr-05-atualizada-2021-1.pdf">&gt; Acesse a norma completa</a>
                             </div>
-                            <p>Esta Norma estabelece os parâmetros e os requisitos da Comissão Interna de Prevenção de Acidentes – CIPA, tendo por objetivo a prevenção de acidentes e doenças relacionadas ao trabalho, de modo a tornar compatível, permanentemente, o trabalho com a preservação da vida e promoção da saúde do trabalhador.</p>
-                            <a target="_blank" href="https://www.gov.br/trabalho-e-previdencia/pt-br/composicao/orgaos-especificos/secretaria-de-trabalho/inspecao/seguranca-e-saude-no-trabalho/normas-regulamentadoras/nr-05-atualizada-2021-1.pdf">&gt; Acesse a norma completa</a>
                         </div>
 
                         <div className='column right'>
                             <div className='titulo-consulta'>
                                 Consultas: Equipes SESMT e CIPA                                
                             </div>
+                            <p>Com esta ferramenta é possível descobrir rapidamente a composição das equipes de SESMT e CIPA, conforme orientado pelas normas vigentes. Indique o CNPJ e o número de funcionários da empresa que deseja consultar. Caso não seja possível consultar o CNPJ, há a opção de consultar diretamente com o CNAE desejado.</p>
                             <div>
                                 <button className='selecionaEntrada btnCNPJ' >Consultar com CNPJ</button>
                                 <button className='selecionaEntrada btnCNAE' >Consultar com CNAE</button>
@@ -260,10 +271,21 @@ function Ferramentas(){
                                 </div>
                             </form>
 
-                            {response.type === 'error' ? <p className='alert-danger'>{response.mensagem}</p> : ""}
-                            {response.type === 'success' ? <div className='alert-success'>
-                                <h3>CARACTERÍSTICA DA EMPRESA:</h3>
+                        </div>
+                    </div> 
+
+                    <div id='resultado-consulta'>
+                        {response.type === 'error' ? 
+                            <p className='alert-danger'>{response.mensagem}</p> 
+                        : ""}
+
+                        {response.type === 'success' ? 
+                            <div className='alert-success'>
+                                <h3>CARACTERÍSTICAS DA EMPRESA:</h3>
                                 <ul>
+                                    <li>CNPJ: {respostaDadosNR.cnpj};</li>
+                                    <li>Razão Social: {respostaDadosNR.razaoSocial};</li>
+                                    <li>Nome Fantasia: {respostaDadosNR.nomeFantasia};</li>
                                     <li>CNAE consultado: {respostaDadosNR.cod_cnae};</li>
                                     <li>Denominação do CNAE: {respostaDadosNR.desc_cnae}</li>
                                     <li>Grau de Risco da Empresa: {respostaDadosNR.grau_risco};</li>
@@ -282,13 +304,14 @@ function Ferramentas(){
                                     <li>Membros da equipe efetiva: {respostaDadosNR.cipa_efetivos};</li>
                                     <li>Membros da equipe suplente {respostaDadosNR.cipa_suplentes}.</li>
                                 </ul>
-                            </div> : ""}
+                            </div> 
+                        : ""} 
+                    </div>
 
-
-                        </div>
-                    </div>                                   
                 </div>
             </section>
+
+            <Footer/>
 
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -300,8 +323,3 @@ function Ferramentas(){
 }
 
 export default Ferramentas;
-
-/*
-                            {response.type === 'error' ? <p className='alert-danger'>{response.mensagem}</p> : ""}
-                            {response.type === 'success' ? <p className='alert-success'>{response.mensagem}</p> : ""}
-                            */

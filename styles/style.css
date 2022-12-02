@@ -9,7 +9,9 @@
 body{
     /*background-color: #09253C;*/
     background-color: white;
-    
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
 .max-width{
     max-width: 1200px;
@@ -198,6 +200,7 @@ section{
     /*background-color: #09253C;*/
     color: #333333;
     font-family: 'Roboto', 'Sans-serif';
+    min-height: 85vh;
 }
 
 .contact .title{
@@ -263,13 +266,53 @@ section{
     color:#44B44A;
 }
 
+.contact .bloco-explicacao{
+    margin: 0 0 30px 0;
+    padding: 20px 30px;
+    background-color:#f0fff1;
+    border:3px solid #44B44A;
+    border-radius: 8px;
+}
+
+
 .contact .contact-content .titulo-consulta{
     color:#44B44A;
     font-size: 20px;
     font-weight: 800;
     text-shadow: 1px 1px #09253C22;
-    margin: 15px 0 10px 0;
+    margin: 0 0 10px 0;
 }
+
+.right .selecionaEntrada{
+    color: #333333;
+    display: inline;
+    width: 160px;
+    height: 30px;
+    outline: none;
+    font-size: 14px;
+    font-weight: 300;
+    border-radius: 6px;
+    cursor: pointer;
+    flex-wrap: wrap;
+    background-color: #eeeded;
+    border: 2px solid #44B44A;
+    transition: all 0.2s ease;
+}
+
+.right .selecionaEntrada:hover{
+    color: #44B44A;
+    background: none;
+    font-weight: 600;
+}
+
+/*
+.right .btnCNPJ, .right .btnCNAE{
+    color: white;
+    background: #44B44A;
+    font-weight: 600;
+}
+*/
+
 .contact .contact-content .right form .field{
     height: 45px;
     width: 100%;
@@ -404,19 +447,34 @@ section{
     }
 }
 
-.contact .contact-content .right .alert-danger{
+.contact  .alert-danger{
     background-color: #f8d7da;
     color: #842029;
-    margin: 15px 0;
+    margin: 30px 0;
     border: 1px solid #f5c2c7;
     border-radius: 6px;
     padding: 10px;
 }
-.contact .contact-content .right .alert-success{
+.contact  .alert-success{
+
     background-color: #eaf8f2;
     color: #0f5132;
-    margin: 15px 0;
+    margin: 30px 0;
     border: 1px solid #dadbcc;
     border-radius: 6px;
     padding: 20px 10px 20px 30px;
+}
+
+.rodape{
+    color:white;
+    width: 100%;
+    padding: 90px 30px 20px 30px;
+    background-color: #09253C;
+    position: static;
+    bottom: 0;
+    margin-bottom: 0;
+}
+.rodape p{
+    text-align: center;
+    margin: 20px;
 }

@@ -5,9 +5,12 @@ $(function(){
     })
 })
 
+
+
 $(function(){
     $('.btnCNPJ').click(function(){
         $('.formCNPJ').show();
+       //$('.selecionaEntrada').toggleClass(".btnCNPJ",true);
         $('.formCNAE').hide();
     })
 })
@@ -15,6 +18,7 @@ $(function(){
 $(function(){
     $('.btnCNAE').click(function(){
         $('.formCNAE').show();
+        //$('.selecionaEntrada').toggleClass(".btnCNPJ", false);
         $('.formCNPJ').hide();
     })
 })

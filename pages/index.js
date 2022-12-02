@@ -1,6 +1,8 @@
 //const { config } = require('dotenv');
 import Head from 'next/head';
 import Menu from '../components/Menu';
+import AvisoTestes from '../components/AvisoTestes'
+import Footer from '../components/Footer';
 
 //config();
 
@@ -17,22 +19,38 @@ function Home({data}){
             </Head>
 
             <Menu/>
-            <section className='top'>
+
+            <section className='contact'>
                 <div className='max-width'>
-                    <div className='top-content'>
-                        <div className='text-1'>
-                            {data.dataHome.text_one}
+                    <h2 className='title'>Ferramentas</h2>
+                    
+                    <div className='contact-content'>
+                        
+                        <div className='column left'>
+                            <div className='titulo-consulta'>
+                                Normas Regulamentadoras (NRs)                             
+                            </div>
+                            <ul>
+                                <li><a target="_blank" href="/ferramentas">&gt; Consulta NR04 e NR05</a></li>
+                            </ul>
+                            
                         </div>
-                        <div className='text-2'>
-                            {data.dataHome.text_two}
+                    
+
+
+                        <div className='column right'>
+                            <div className='titulo-consulta'>
+                                Ferramentas de Consulta
+                            </div>
+                            <div>
+                                <p>Disponibilizamos ferramentas para consulta de dados das NRs</p>
+                            </div>
                         </div>
-                        <div className='text-3'>
-                            {data.dataHome.text_three}
-                        </div>
-                        <a href={data.dataHome.btn_link}>{data.dataHome.btn_title}</a>
                     </div>
+
                 </div>
             </section>
+            <Footer/>
 
 
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -43,6 +61,7 @@ function Home({data}){
     )
 }
 
+/*
 export async function getServerSideProps(){
     const response = await fetch(process.env.SERVER_URL);
     //const response = await fetch(process.env.SERVER_URL);
@@ -50,6 +69,6 @@ export async function getServerSideProps(){
     //console.log(data);
 
     return { props:{data}};
-}
+}*/
 
 export default Home;
