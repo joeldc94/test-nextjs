@@ -31,7 +31,8 @@ function Home({data}){
                                 Normas Regulamentadoras (NRs)                             
                             </div>
                             <ul>
-                                <li><a target="_blank" href="/ferramentas">&gt; Consulta NR04 e NR05</a></li>
+                                <br/><li><a target="_blank" href="/consulta_nr04">&gt; NR-04: Consulta equipe SESMT</a></li>
+                                <br/><li><a target="_blank" href="/consulta_nr05">&gt; NR-05: Consulta equipe CIPA</a></li>
                             </ul>
                             
                         </div>

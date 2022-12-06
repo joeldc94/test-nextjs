@@ -33,5 +33,5 @@ Adicionar CSS:
             return <Component {...pageProps}/>
         }
 
-
-### npm i jquery-mask-plugin
+instalar lib para mascara nos inputs
+### npm install react-input-mask --save

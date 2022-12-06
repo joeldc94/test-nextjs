@@ -1,13 +1,8 @@
-const RespostaErro = (mensagem) => (
+const RespostaErro = ({props}) => {
+    console.log("AQUI:   " + props);
     <div>
-        <p className='alert-danger'>{mensagem}</p>
-    </div>
-      
-    
-);
-
-RespostaErro.getInitialProps = (ctx) =>{
-    return ctx.mensagem
+        <p className='alert-danger'>AQUI: {props.mensagem}</p>
+    </div>  
 }
 
 export default RespostaErro;
