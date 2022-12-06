@@ -35,3 +35,6 @@ Adicionar CSS:
 
 instalar lib para mascara nos inputs
 ### npm install react-input-mask --save
+
+content loader
+### npm i react-content-loader
