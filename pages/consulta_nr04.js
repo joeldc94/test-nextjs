@@ -239,7 +239,7 @@ function ConsultaNR04(){
 
                     <div id='resultado-consulta'>
                         {response.type === 'error' ? 
-                            <RespostaErro props = {respostaDadosNR} />
+                            <div className='alert-danger'>{response.mensagem}</div>
                         : ""}
 
                         {response.type === 'success' ? 

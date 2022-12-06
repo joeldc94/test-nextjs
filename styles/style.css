@@ -98,7 +98,7 @@ body{
 
 
 
-@media (max-width: 947px){
+@media (max-width: 1200px){
     .menu-btn{
         display: block;
         z-index: 999;
