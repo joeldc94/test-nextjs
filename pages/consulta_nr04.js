@@ -1,6 +1,7 @@
 import React, { useState, createContext } from 'react';
 import Head from 'next/head';
 import InputMask from 'react-input-mask';
+import ContentLoader, {List} from 'react-content-loader';
 
 import Menu from '../components/Menu';
 import AvisoTestes from '../components/AvisoTestes'
@@ -14,6 +15,7 @@ function ConsultaNR04(){
     const OBSSESMT2 = '(**) O dimensionamento total deverá ser feito levando-se em consideração o dimensionamento da faixa de 3.501 a 5.000, acrescido do dimensionamento do(s) grupo(s) de 4.000 ou fração acima de 2.000.';
     const OBSSESMT3 = '(***) O empregador pode optar pela contratação de um enfermeiro do trabalho em tempo parcial, em substituição ao auxiliar ou técnico de enfermagem do trabalho';
 
+    const [loading, setLoading] = useState(false);
 
     const [dataForm, setDataForm] = useState({
         cnpj: '',
@@ -26,7 +28,7 @@ function ConsultaNR04(){
     const [response, setResponse] = useState({
         type: '',
         mensagem: ''
-    })
+    });
 
     var [respostaDadosNR, setRespostaDadosNR] = useState({
         cnpj: '',
@@ -48,19 +50,19 @@ function ConsultaNR04(){
         obsSesmt1: '',
         obsSesmt2: '',
         obsSesmt3: ''
-    })
+    });
     
 
     const onChangeInput = e => setDataForm({...dataForm, [e.target.name]: e.target.value});
 
+
     const sendInfo = async e => {
-
-        e.preventDefault(); //indica que não deve recarregar a página
-
         //verifica numero de funcionários
         if(dataForm.numero_trabalhadores == 0 || dataForm.numero_trabalhadores == ""){
             //nroFuncOk = true;
             alert('Erro: Insira o número de funcionários.');
+            //setResponse({loading: false}); 
+            setLoading(false);
             return
         }
        
@@ -71,6 +73,8 @@ function ConsultaNR04(){
             //necessário checar se o tamanho está correto. Checado com o regex
             if(!dataForm.cnpj.match(cnpjRegex)){
                 alert('Erro: Insira o CNPJ no formato correto.');
+                //setResponse({loading: false}); 
+                setLoading(false);
                 return
             }
             else{
@@ -84,6 +88,8 @@ function ConsultaNR04(){
             //necessário checar se o tamanho está correto. Checado com o regex
             if(!dataForm.codigo_cnae1.match(cnaeRegex) && !dataForm.codigo_cnae2.match(cnaeRegex)){
                 alert('Erro: Insira um código CNAE válido');
+                //setResponse({loading: false});
+                setLoading(false); 
                 return                                
             }
             else{
@@ -92,9 +98,14 @@ function ConsultaNR04(){
         }else{
             //dá falha se não reconhecer nem cnpj nem cnae
             alert('Erro: Falha no envio do formulário');
+            //setResponse({loading: false});
+            setLoading(false);
             return
         }
+        //console.log("LOADING::::: " + response.loading);
 
+        e.preventDefault(); //indica que não deve recarregar a página
+        
         //se deu certo até aqui, realiza o POST
         try{
             const res = await fetch(process.env.SERVER_URL + 'nr04-05-consulta', {
@@ -104,7 +115,7 @@ function ConsultaNR04(){
             });
             
             const retorno = await res.json();
-            console.log(retorno.respostaConsultaTabelas);
+            //console.log(retorno.respostaConsultaTabelas);
             
             if(retorno.respostaConsultaTabelas.erro){
                 setResponse({
@@ -143,16 +154,17 @@ function ConsultaNR04(){
                     obsSesmt1: retorno.respostaConsultaTabelas.obsSesmt1,
                     obsSesmt2: retorno.respostaConsultaTabelas.obsSesmt2,
                     obsSesmt3: retorno.respostaConsultaTabelas.obsSesmt3
-
                 });
             }
-        }catch(err){            
+        }catch(err){  
+            setLoading(false);    
             setResponse({
                 type:'error',
                 mensagem:'Erro: não foi possível realizar a consulta. Tente novamente mais tarde.'
             });            
             console.log(err);
         }
+        setLoading(false);
         document.getElementById("resultado-consulta").scrollIntoView({behavior: 'smooth'})
     }
 
@@ -207,7 +219,7 @@ function ConsultaNR04(){
                                 </div>
                                 
                                 <div className='button-area'>
-                                    <button type="submit" onClick={()=>dataForm.type='cnpj'}>Enviar</button>
+                                    <button type="submit" onClick={()=>{dataForm.type='cnpj';setLoading(true);}}>Enviar</button>
                                 </div>                                
                             </form>
 
@@ -230,7 +242,7 @@ function ConsultaNR04(){
                                     </div>
                                 </div>
                                 <div className='button-area'>
-                                    <button type="submit" onClick={()=>dataForm.type='cnae'}>Enviar</button>
+                                    <button type="submit" onClick={()=>{dataForm.type='cnae'; setLoading(true);}}>Enviar</button>
                                 </div>
                             </form>
 
@@ -238,11 +250,14 @@ function ConsultaNR04(){
                     </div> 
 
                     <div id='resultado-consulta'>
-                        {response.type === 'error' ? 
+
+                        {loading ? <List /> : ''}
+
+                        {!loading && response.type === 'error' ? 
                             <div className='alert-danger'>{response.mensagem}</div>
                         : ""}
 
-                        {response.type === 'success' ? 
+                        {!loading && response.type === 'success' ? 
                             <div className='alert-success'>
                                 <h3>CARACTERÍSTICAS DA EMPRESA:</h3>
                                 <ul>

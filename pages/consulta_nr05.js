@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Head from 'next/head';
 import InputMask from 'react-input-mask';
+import ContentLoader, {List} from 'react-content-loader';
 
 import Menu from '../components/Menu';
 import AvisoTestes from '../components/AvisoTestes'
@@ -16,11 +17,12 @@ function ConsultaNR05(){
         numero_trabalhadores: '',
         type: ''
     });
+    const [loading, setLoading] = useState(false);
 
     const [response, setResponse] = useState({
         type: '',
         mensagem: ''
-    })
+    });
 
     var [respostaDadosNR, setRespostaDadosNR] = useState({
         cnpj: '',
@@ -39,7 +41,7 @@ function ConsultaNR05(){
         faixa_nro_trabalhadores_cipa: '',
         cipa_efetivos: '',
         cipa_suplentes: ''
-    })
+    });
     
 
     const onChangeInput = e => setDataForm({...dataForm, [e.target.name]: e.target.value});
@@ -48,56 +50,11 @@ function ConsultaNR05(){
 
         e.preventDefault(); //indica que não deve recarregar a página
 
-        /*
-        var cnaeRegex = /^\d{1,2}\.\d{1,2}-\d{1}/;
-
-        //alert('Entrou no ENVIAR');
-        if(dataForm.numero_trabalhadores != 0 || dataForm.numero_trabalhadores != ""){
-            nroFuncOk = true;
-        }
-        else{
-            alert('Erro: Insira o número de funcionários.');
-            return
-        }
-
-        if(dataForm.type == 'cnpj'){
-            //const cnpjRegex =
-            //dataForm.cnpj = document.getElementsByName('formCNPJ').value;
-            dataForm.codigo_cnae1 = '';
-            dataForm.codigo_cnae2 = '';
-
-        }else if(dataForm.type == 'cnae'){
-            if(dataForm.codigo_cnae1.match(cnaeRegex) || dataForm.codigo_cnae2.match(cnaeRegex)){
-                nroCnaeOk = true;
-                /*
-                if(dataForm.numero_trabalhadores != 0 || dataForm.numero_trabalhadores != ""){
-                    nroFuncOk = true;
-                }
-                else{
-                    alert('Erro: Insira o número de funcionários.');
-                    return
-                }
-                
-                dataForm.cnpj = '';
-                //ignora os dois ultimos digitos do codigo cnae se vier no formato 00.00-0-00
-                //se vier no formato 00.00-0 esta ok para consultar no db
-                dataForm.codigo_cnae1 = dataForm.codigo_cnae1.substring(0,7);
-                dataForm.codigo_cnae2 = dataForm.codigo_cnae2.substring(0,7);                
-            }
-            else{
-                alert('Erro: Insira um código CNAE válido');
-                return
-            }
-        }else{
-            alert('Erro: Falha no envio do formulário');
-            return
-        }
-        */
-
         //verifica numero de funcionários
         if(dataForm.numero_trabalhadores == 0 || dataForm.numero_trabalhadores == ""){
             //nroFuncOk = true;
             alert('Erro: Insira o número de funcionários.');
+            setLoading(false);
             return
         }
         
@@ -108,6 +65,7 @@ function ConsultaNR05(){
             //necessário checar se o tamanho está correto. Checado com o regex
             if(!dataForm.cnpj.match(cnpjRegex)){
                 alert('Erro: Insira o CNPJ no formato correto.');
+                setLoading(false);
                 return
             }
             else{
@@ -121,6 +79,7 @@ function ConsultaNR05(){
             //necessário checar se o tamanho está correto. Checado com o regex
             if(!dataForm.codigo_cnae1.match(cnaeRegex) && !dataForm.codigo_cnae2.match(cnaeRegex)){
                 alert('Erro: Insira um código CNAE válido');
+                setLoading(false);
                 return                                
             }
             else{
@@ -129,6 +88,7 @@ function ConsultaNR05(){
         }else{
             //dá falha se não reconhecer nem cnpj nem cnae
             alert('Erro: Falha no envio do formulário');
+            setLoading(false);
             return
         }
 
@@ -181,17 +141,17 @@ function ConsultaNR05(){
                     cipa_suplentes: retorno.respostaConsultaTabelas.cipaSuplentes
                 });
             }
-        }catch(err){            
+        }catch(err){   
+            setLoading(false);         
             setResponse({
                 type:'error',
                 mensagem:'Erro: não foi possível realizar a consulta. Tente novamente mais tarde.'
             });            
             console.log(err);
         }
+        setLoading(false);
         document.getElementById("resultado-consulta").scrollIntoView({behavior: 'smooth'})
     }
-
-
 
     return(
         <div>
@@ -244,7 +204,7 @@ function ConsultaNR05(){
                                 </div>
                                 
                                 <div className='button-area'>
-                                    <button type="submit" onClick={()=>dataForm.type='cnpj'}>Enviar</button>
+                                    <button type="submit" onClick={()=>{dataForm.type='cnpj';setLoading(true);}}>Enviar</button>
                                 </div>                                
                             </form>
 
@@ -267,7 +227,7 @@ function ConsultaNR05(){
                                     </div>
                                 </div>
                                 <div className='button-area'>
-                                    <button type="submit" onClick={()=>dataForm.type='cnae'}>Enviar</button>
+                                    <button type="submit" onClick={()=>{dataForm.type='cnae';setLoading(true);}}>Enviar</button>
                                 </div>
                             </form>
 
@@ -275,11 +235,13 @@ function ConsultaNR05(){
                     </div> 
 
                     <div id='resultado-consulta'>
-                        {response.type === 'error' ? 
+                        {loading ? <List /> : ''}
+
+                        {!loading && response.type === 'error' ? 
                             <p className='alert-danger'>{response.mensagem}</p> 
                         : ""}
 
-                        {response.type === 'success' ? 
+                        {!loading && response.type === 'success' ? 
                             <div className='alert-success'>
                                 <h3>CARACTERÍSTICAS DA EMPRESA:</h3>
                                 <ul>
