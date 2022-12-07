@@ -6,6 +6,8 @@ import ContentLoader, {List} from 'react-content-loader';
 import Menu from '../components/Menu';
 import AvisoTestes from '../components/AvisoTestes'
 import RespostaErro from '../components/RespostaErro'
+import RespostaCipaCnpj from '../components/RespostaCipaCnpj'
+import RespostaCipaCnae from '../components/RespostaCipaCnae'
 import Footer from '../components/Footer';
 
 function ConsultaNR05(){
@@ -42,13 +44,13 @@ function ConsultaNR05(){
         cipa_efetivos: '',
         cipa_suplentes: ''
     });
-    
 
     const onChangeInput = e => setDataForm({...dataForm, [e.target.name]: e.target.value});
 
     const sendInfo = async e => {
-
-        e.preventDefault(); //indica que não deve recarregar a página
+        
+        //indica que não deve recarregar a página
+        e.preventDefault();
 
         //verifica numero de funcionários
         if(dataForm.numero_trabalhadores == 0 || dataForm.numero_trabalhadores == ""){
@@ -156,12 +158,8 @@ function ConsultaNR05(){
     return(
         <div>
             <Head>
-                <meta charset="utf-8"/>
-                <meta name="robots" content="index, follow"/>
                 <meta name="description" content="Previsio Engenharia: Consulta NR-05: Constituição de Equipe CIPA"/>
-                <meta name="author" content="Joel De Conto"/>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
-                
                 <title>Consulta NR05 - Previsio Engenharia</title>
             </Head>
 
@@ -235,31 +233,18 @@ function ConsultaNR05(){
                     </div> 
 
                     <div id='resultado-consulta'>
+
                         {loading ? <List /> : ''}
 
                         {!loading && response.type === 'error' ? 
-                            <p className='alert-danger'>{response.mensagem}</p> 
+                           <RespostaErro dados={response}/>
                         : ""}
 
-                        {!loading && response.type === 'success' ? 
-                            <div className='alert-success'>
-                                <h3>CARACTERÍSTICAS DA EMPRESA:</h3>
-                                <ul>
-                                    <li>CNPJ: {respostaDadosNR.cnpj};</li>
-                                    <li>Razão Social: {respostaDadosNR.razaoSocial};</li>
-                                    <li>Nome Fantasia: {respostaDadosNR.nomeFantasia};</li>
-                                    <li>CNAE consultado: {respostaDadosNR.cod_cnae};</li>
-                                    <li>Denominação do CNAE: {respostaDadosNR.desc_cnae}</li>
-                                    <li>Grau de Risco da Empresa: {respostaDadosNR.grau_risco};</li>
-                                    <li>Quantidade de Trabalhadores: {respostaDadosNR.nro_trabalhadores} ({respostaDadosNR.faixa_nro_trabalhadores_sesmt});</li>
-                                </ul><br></br>
-                                <h3>EQUIPE CIPA NECESSÁRIA:</h3>
-                                <ul>
-                                    <li>Membros da equipe efetiva: {respostaDadosNR.cipa_efetivos};</li>
-                                    <li>Membros da equipe suplente {respostaDadosNR.cipa_suplentes}.</li>
-                                </ul>
-                            </div> 
-                        : ""} 
+                        {!loading && response.type === 'success' && respostaDadosNR.cnpj ? 
+                            <RespostaCipaCnpj dados={respostaDadosNR}/> : ""} 
+
+                        {!loading && response.type === 'success' && !respostaDadosNR.cnpj ? 
+                            <RespostaCipaCnae dados={respostaDadosNR}/> : ""} 
                     </div>
 
                 </div>

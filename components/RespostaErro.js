@@ -1,8 +1,9 @@
-const RespostaErro = ({props}) => {
-    console.log("AQUI:   " + props);
-    <div>
-        <p className='alert-danger'>AQUI: {props.mensagem}</p>
-    </div>  
+const RespostaErro = ({dados}) => {
+    return(
+        <div className='alert-danger'>
+            <p className='error'>{dados.mensagem}</p>
+        </div>
+    );
 }
 
 export default RespostaErro;

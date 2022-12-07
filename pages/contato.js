@@ -70,12 +70,8 @@ function Home(){
     return(
         <div>
             <Head>
-                <meta charset="utf-8"/>
-                <meta name="robots" content="index, follow"/>
                 <meta name="description" content= "Previsio Engenharia: Formulário de Contato"/>
-                <meta name="author" content="Joel De Conto"/>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
-                
                 <title>Contato - Previsio Engenharia</title>
             </Head>
 
