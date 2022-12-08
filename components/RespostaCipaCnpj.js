@@ -18,7 +18,7 @@ const RespostaCipaCnpj = ({dados}) => {
                         <td>{dados.nomeFantasia}</td>
                     </tr>
                     <tr>
-                        <th className="header-v">CNAE Consultado</th>
+                        <th className="header-v">CNAE Principal</th>
                         <td>{dados.cod_cnae}</td>
                     </tr>
                     <tr>
@@ -26,7 +26,7 @@ const RespostaCipaCnpj = ({dados}) => {
                         <td>{dados.desc_cnae}</td>
                     </tr>
                     <tr>
-                        <th className="header-v">Grau de Risco</th>
+                        <th className="header-v">Grau de Risco da Empresa</th>
                         <td>{dados.grau_risco}</td>
                     </tr>
                     <tr>
