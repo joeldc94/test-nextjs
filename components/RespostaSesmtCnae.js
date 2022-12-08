@@ -5,25 +5,76 @@ const RespostaSesmtCnae = ({dados}) => {
     const OBSSESMT3 = '(***) O empregador pode optar pela contratação de um enfermeiro do trabalho em tempo parcial, em substituição ao auxiliar ou técnico de enfermagem do trabalho';
 
     return(
-        <div className='alert-success'>
-            <h3>CARACTERÍSTICAS DA EMPRESA:</h3>
-            <ul>
-                <li>CNAE consultado: {dados.cod_cnae};</li>
-                <li>Denominação do CNAE: {dados.desc_cnae}</li>
-                <li>Grau de Risco Associado: {dados.grau_risco};</li>
-                <li>Quantidade de Trabalhadores: {dados.nro_trabalhadores} ({dados.faixa_nro_trabalhadores_sesmt});</li>
-            </ul><br></br>
-            <h3>EQUIPE SESMT NECESSÁRIA:</h3>
-            <ul>
-                <li>Técnicos de Segurança: {dados.nro_tecnico_seg};</li>
-                <li>Engenheiros de Segurança: {dados.nro_engenheiro_seg};</li>
-                <li>Auxiliares/Técnicos de Enfermagem: {dados.nro_aux_tec_enfermagem};</li>
-                <li>Enfermeiros: {dados.nro_enfermeiro};</li>
-                <li>Médicos: {dados.nro_medico}.</li>
-            </ul><br></br>
-            {dados.obsSesmt1 ? <p>{OBSSESMT1}</p> : ""}
-            {/*respostaDadosNR.obsSesmt2 ? <p>{OBSSESMT2}</p> : ""*/}
-            {dados.obsSesmt3 ? <p>{OBSSESMT3}</p> : ""}
+        <div className='resposta-success'>
+            <h3 className='titulo1'>CARACTERÍSTICAS DA EMPRESA</h3>
+            <table>
+                <tbody>
+                    <tr>
+                        <th className="header-v">CNAE Consultado</th>
+                        <td>{dados.cod_cnae}</td>
+                    </tr>
+                    <tr>
+                        <th className="header-v">Denominação do CNAE</th>
+                        <td>{dados.desc_cnae}</td>
+                    </tr>
+                    <tr>
+                        <th className="header-v">Grau de Risco Associado</th>
+                        <td>{dados.grau_risco}</td>
+                    </tr>
+                    <tr>
+                        <th className="header-v">Quantidade de Trabalhadores</th>
+                        <td>{dados.nro_trabalhadores}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3 className='titulo2'>EQUIPE SESMT NECESSÁRIA</h3>
+            <table>
+                <tbody>
+                    <tr>
+                        <th className="header-v">Técnicos de Segurança</th>
+                        <td>{dados.nro_tecnico_seg}</td>
+                    </tr>
+                    <tr>
+                        <th className="header-v">Engenheiros de Segurança</th>
+                        <td>{dados.nro_engenheiro_seg}</td>
+                    </tr>
+                    <tr>
+                        <th className="header-v">Auxiliares/Técnicos de Enfermagem</th>
+                        <td>{dados.nro_aux_tec_enfermagem}</td>
+                    </tr>
+                    <tr>
+                        <th className="header-v">Enfermeiros</th>
+                        <td>{dados.nro_enfermeiro}</td>
+                    </tr>
+                    <tr>
+                        <th className="header-v">Médicos</th>
+                        <td>{dados.nro_medico}</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    {dados.obsSesmt1 ? 
+                    <tr>
+                        <td colspan="2">
+                            {dados.obsSesmt1 ? <p className="obs">{OBSSESMT1}</p> : ""}
+                        </td>
+                    </tr>
+                    : ""}
+                    {dados.obsSesmt2 ? 
+                    <tr>
+                        <td colspan="2">
+                            {/*respostaDadosNR.obsSesmt2 ? <p>{OBSSESMT2}</p> : ""*/}
+                        </td>
+                    </tr>
+                    : ""}
+                    {dados.obsSesmt3 ? 
+                    <tr>
+                        <td colspan="2">
+                            {dados.obsSesmt3 ? <p className="obs">{OBSSESMT3}</p> : ""}
+                        </td>
+                    </tr>
+                    : ""}
+                </tfoot>
+            </table>
         </div>
     )
 };

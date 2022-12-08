@@ -17,6 +17,7 @@
     border: 1px solid #dadbcc;
     border-radius: 6px;
     padding: 10px 10px 30px 10px;
+    min-width: 500px;
 }
 .resposta-success .titulo1, .titulo2{
     background-color: #0f5132;
@@ -29,38 +30,36 @@
 .resposta-success .titulo2{
     margin-top: 30px;
 }
+
+
 .resposta-success table{
     padding: 0 30px;
+    width: 100%;
 }
-.resposta-success table th{
+.resposta-success table tbody td{
+    font-size: 14px;
+    color: #333;
+    /*width: 100%;*/
+}
+.resposta-success table tbody td, th{
+    padding: 5px;
     text-align: left;
+    vertical-align: middle;
+    border-bottom: 1px solid #ddd;
+}
+.resposta-success table tbody .header-v{
+    height: 40px;
     color:#0f5132;
     font-weight: 600;
-    min-width: 300px;
+    width: 250px;
 }
-.resposta-success table td{
-    text-align: left;
-    padding-left: 15px;
-    font-size: 14px;
-    color: #333;
-    width: 100%;  
+
+.resposta-success table tbody tr:nth-child(odd) {
+    background-color: #fff;
 }
-.resposta-success table td, th{
-    border: 1px solid #ddd;
-    border-top: 0;
-    border-left: 0;
-    border-right: 0;
-}
-.resposta-success tfoot{
+
+.resposta-success table tfoot td{
     font-size: 12px;
-    padding-left: 30px;
-}
-
-
-
-
-.resposta-success .lista1{
-    color: #333;
-    font-size: 14px;
-    margin-left: 30px;
+    padding: 10px 10px 0 10px;
+    text-align: justify;
 }
