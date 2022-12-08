@@ -5,7 +5,7 @@ const Menu = () => (
         <nav className="navbar">
             <div className="max-width">
                 <div className="logo">
-                    <a href="/">
+                    <a href="https://previsio.com.br/">
                     <img src="https://github.com/joeldc94/test-nextjs/blob/integra%C3%A7ao-site-previsio/public/logo_previsio_azul.png?raw=true" alt="Logo Previsio Engenharia" width="auto" height="90"></img>
                     </a>
                 </div>
@@ -22,7 +22,7 @@ const Menu = () => (
 
                     <li><a href="https://previsio.com.br/downloads/" className="menu-item downloads">Downloads</a></li>
 
-                    <li><a href="/ferramentas" className="menu-item ferramentas">Ferramentas</a></li>
+                    <li><a href="/" className="menu-item ferramentas">Ferramentas</a></li>
 
                     <li><a href="https://previsio.com.br/contato/" className="menu-item contato">Contato</a></li>
 

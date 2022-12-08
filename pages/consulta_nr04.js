@@ -209,7 +209,7 @@ function ConsultaNR04(){
                                 </div>
                                 
                                 <div className='button-area'>
-                                    <button type="submit" onClick={()=>{dataForm.type='cnpj';setLoading(true);}}>Enviar</button>
+                                    <button type="submit" onClick={()=>{dataForm.type='cnpj';setLoading(true);}}>Consultar</button>
                                 </div>                                
                             </form>
 

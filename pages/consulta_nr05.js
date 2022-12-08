@@ -225,7 +225,7 @@ function ConsultaNR05(){
                                     </div>
                                 </div>
                                 <div className='button-area'>
-                                    <button type="submit" onClick={()=>{dataForm.type='cnae';setLoading(true);}}>Enviar</button>
+                                    <button type="submit" onClick={()=>{dataForm.type='cnae';setLoading(true);}}>Consultar</button>
                                 </div>
                             </form>
 
