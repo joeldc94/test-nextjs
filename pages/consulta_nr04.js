@@ -6,14 +6,11 @@ import ContentLoader, {List} from 'react-content-loader';
 import Menu from '../components/Menu';
 import AvisoTestes from '../components/AvisoTestes'
 import RespostaErro from '../components/RespostaErro'
+import RespostaSesmtCnpj from '../components/RespostaSesmtCnpj'
+import RespostaSesmtCnae from '../components/RespostaSesmtCnae'
 import Footer from '../components/Footer';
 
-
 function ConsultaNR04(){
-
-    const OBSSESMT1 = '(*) Tempo parcial (mínimo de três horas)';
-    const OBSSESMT2 = '(**) O dimensionamento total deverá ser feito levando-se em consideração o dimensionamento da faixa de 3.501 a 5.000, acrescido do dimensionamento do(s) grupo(s) de 4.000 ou fração acima de 2.000.';
-    const OBSSESMT3 = '(***) O empregador pode optar pela contratação de um enfermeiro do trabalho em tempo parcial, em substituição ao auxiliar ou técnico de enfermagem do trabalho';
 
     const [loading, setLoading] = useState(false);
 
@@ -50,13 +47,14 @@ function ConsultaNR04(){
         obsSesmt1: '',
         obsSesmt2: '',
         obsSesmt3: ''
-    });
-    
+    });    
 
     const onChangeInput = e => setDataForm({...dataForm, [e.target.name]: e.target.value});
 
-
     const sendInfo = async e => {
+        //indica que não deve recarregar a página
+        e.preventDefault(); 
+
         //verifica numero de funcionários
         if(dataForm.numero_trabalhadores == 0 || dataForm.numero_trabalhadores == ""){
             //nroFuncOk = true;
@@ -102,9 +100,6 @@ function ConsultaNR04(){
             setLoading(false);
             return
         }
-        //console.log("LOADING::::: " + response.loading);
-
-        e.preventDefault(); //indica que não deve recarregar a página
         
         //se deu certo até aqui, realiza o POST
         try{
@@ -171,12 +166,8 @@ function ConsultaNR04(){
     return(
         <div>
             <Head>
-                <meta charset="utf-8"/>
-                <meta name="robots" content="index, follow"/>
                 <meta name="description" content="Previsio Engenharia: Consulta NR04: Constituição de Equipe SESMT"/>
-                <meta name="author" content="Joel De Conto"/>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
-                
                 <title>Consulta NR04 - Previsio Engenharia</title>
             </Head>
 
@@ -186,7 +177,6 @@ function ConsultaNR04(){
                     <h2 className='title'>Consulta NR04: Equipe SESMT</h2>
                     <AvisoTestes/>
                     <div className='contact-content'>
-                        
                         <div className='column left'>
                             <div className='bloco-explicacao'>
                                 <h3 className='titulo-consulta'>NR04</h3>
@@ -254,34 +244,14 @@ function ConsultaNR04(){
                         {loading ? <List /> : ''}
 
                         {!loading && response.type === 'error' ? 
-                            <div className='alert-danger'>{response.mensagem}</div>
+                           <RespostaErro dados={response}/>
                         : ""}
 
-                        {!loading && response.type === 'success' ? 
-                            <div className='alert-success'>
-                                <h3>CARACTERÍSTICAS DA EMPRESA:</h3>
-                                <ul>
-                                    <li>CNPJ: {respostaDadosNR.cnpj};</li>
-                                    <li>Razão Social: {respostaDadosNR.razaoSocial};</li>
-                                    <li>Nome Fantasia: {respostaDadosNR.nomeFantasia};</li>
-                                    <li>CNAE consultado: {respostaDadosNR.cod_cnae};</li>
-                                    <li>Denominação do CNAE: {respostaDadosNR.desc_cnae}</li>
-                                    <li>Grau de Risco da Empresa: {respostaDadosNR.grau_risco};</li>
-                                    <li>Quantidade de Trabalhadores: {respostaDadosNR.nro_trabalhadores} ({respostaDadosNR.faixa_nro_trabalhadores_sesmt});</li>
-                                </ul><br></br>
-                                <h3>EQUIPE SESMT NECESSÁRIA:</h3>
-                                <ul>
-                                    <li>Técnicos de Segurança: {respostaDadosNR.nro_tecnico_seg};</li>
-                                    <li>Engenheiros de Segurança: {respostaDadosNR.nro_engenheiro_seg};</li>
-                                    <li>Auxiliares/Técnicos de Enfermagem: {respostaDadosNR.nro_aux_tec_enfermagem};</li>
-                                    <li>Enfermeiros: {respostaDadosNR.nro_enfermeiro};</li>
-                                    <li>Médicos: {respostaDadosNR.nro_medico}.</li>
-                                </ul><br></br>
-                                {respostaDadosNR.obsSesmt1 ? <p>{OBSSESMT1}</p> : ""}
-                                {/*respostaDadosNR.obsSesmt2 ? <p>{OBSSESMT2}</p> : ""*/}
-                                {respostaDadosNR.obsSesmt3 ? <p>{OBSSESMT3}</p> : ""}
-                            </div> 
-                        : ""} 
+                        {!loading && response.type === 'success' && respostaDadosNR.cnpj ? 
+                            <RespostaSesmtCnpj dados={respostaDadosNR}/> : ""} 
+
+                        {!loading && response.type === 'success' && !respostaDadosNR.cnpj ? 
+                            <RespostaSesmtCnae dados={respostaDadosNR}/> : ""} 
                     </div>
 
                 </div>

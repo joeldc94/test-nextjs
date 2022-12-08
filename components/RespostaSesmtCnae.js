@@ -1,4 +1,4 @@
-const RespostaSesmtCnpj = ({dados}) => {
+const RespostaSesmtCnae = ({dados}) => {
     
     const OBSSESMT1 = '(*) Tempo parcial (mínimo de três horas)';
     const OBSSESMT2 = '(**) O dimensionamento total deverá ser feito levando-se em consideração o dimensionamento da faixa de 3.501 a 5.000, acrescido do dimensionamento do(s) grupo(s) de 4.000 ou fração acima de 2.000.';
@@ -10,27 +10,15 @@ const RespostaSesmtCnpj = ({dados}) => {
             <table>
                 <tbody>
                     <tr>
-                        <th className="header-v">CNPJ</th>
-                        <td>{dados.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5")}</td>
-                    </tr>
-                    <tr>
-                        <th className="header-v">Razão Social</th>
-                        <td>{dados.razaoSocial}</td>
-                    </tr>
-                    <tr>
-                        <th className="header-v">Nome Fantasia</th>
-                        <td>{dados.nomeFantasia}</td>
-                    </tr>
-                    <tr>
                         <th className="header-v">CNAE Consultado</th>
                         <td>{dados.cod_cnae}</td>
                     </tr>
                     <tr>
-                        <th className="header-v">Denominação</th>
+                        <th className="header-v">Denominação do CNAE</th>
                         <td>{dados.desc_cnae}</td>
                     </tr>
                     <tr>
-                        <th className="header-v">Grau de Risco</th>
+                        <th className="header-v">Grau de Risco Associado</th>
                         <td>{dados.grau_risco}</td>
                     </tr>
                     <tr>
@@ -38,7 +26,7 @@ const RespostaSesmtCnpj = ({dados}) => {
                         <td>{dados.nro_trabalhadores}</td>
                     </tr>
                 </tbody>
-            </table>                
+            </table>
             <h3 className='titulo2'>EQUIPE SESMT NECESSÁRIA</h3>
             <table>
                 <tbody>
@@ -61,7 +49,7 @@ const RespostaSesmtCnpj = ({dados}) => {
                     <tr>
                         <th className="header-v">Médicos</th>
                         <td>{dados.nro_medico}</td>
-                    </tr> 
+                    </tr>
                 </tbody>
                 <tfoot>
                     {dados.obsSesmt1 ? 
@@ -85,10 +73,10 @@ const RespostaSesmtCnpj = ({dados}) => {
                         </td>
                     </tr>
                     : ""}
-                </tfoot>                 
-            </table>               
+                </tfoot>
+            </table>
         </div>
     )
 };
 
-export default RespostaSesmtCnpj;
+export default RespostaSesmtCnae;

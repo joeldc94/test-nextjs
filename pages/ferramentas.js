@@ -191,12 +191,8 @@ function Ferramentas(){
     return(
         <div>
             <Head>
-                <meta charset="utf-8"/>
-                <meta name="robots" content="index, follow"/>
                 <meta name="description" content="Previsio Engenharia: Consulta NR04 e NR05: Constituição de Equipes SESMT e CIPA"/>
-                <meta name="author" content="Joel De Conto"/>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
-                
                 <title>Consulta NR04 e NR05 - Previsio Engenharia</title>
             </Head>
 
