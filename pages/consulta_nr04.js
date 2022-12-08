@@ -120,7 +120,53 @@ function ConsultaNR04(){
                     mensagem: retorno.respostaConsultaTabelas.mensagem                        
                 });
             }
-            else{
+            else{                
+                
+                if(dataForm.type=='cnpj'){
+                    setRespostaDadosNR({  
+                        cod_cnae: retorno.respostaConsultaTabelas.codigoCnaeFiscal,
+                        desc_cnae: retorno.respostaConsultaTabelas.descricaoCnaeFiscal,
+                        cnpj: retorno.respostaConsultaTabelas.cnpj,
+                        razaoSocial: retorno.respostaConsultaTabelas.razaoSocial,
+                        nomeFantasia: retorno.respostaConsultaTabelas.nomeFantasia,
+                        grau_risco: retorno.respostaConsultaTabelas.maiorGrauRisco,
+                        nro_trabalhadores: retorno.respostaConsultaTabelas.nroTrabalhadores,
+                        faixa_nro_trabalhadores_sesmt: 'entre ' + retorno.respostaConsultaTabelas.nroTrabalhadoresMinSesmt + ' e ' + retorno.respostaConsultaTabelas.nroTrabalhadoresMaxSesmt,
+                        nro_tecnico_seg: retorno.respostaConsultaTabelas.tecnicoSeg,
+                        nro_engenheiro_seg: retorno.respostaConsultaTabelas.engenheiroSeg,
+                        nro_aux_tec_enfermagem: retorno.respostaConsultaTabelas.auxTecEnfermagem,
+                        nro_enfermeiro: retorno.respostaConsultaTabelas.enfermeiro,
+                        nro_medico: retorno.respostaConsultaTabelas.medico,
+                        faixa_nro_trabalhadores_cipa: 'entre ' + retorno.respostaConsultaTabelas.nroTrabalhadoresMinCipa + ' e ' + retorno.respostaConsultaTabelas.nroTrabalhadoresMaxCipa,
+                        cipa_efetivos: retorno.respostaConsultaTabelas.cipaEfetivos,
+                        cipa_suplentes: retorno.respostaConsultaTabelas.cipaSuplentes,
+                        obsSesmt1: retorno.respostaConsultaTabelas.obsSesmt1,
+                        obsSesmt2: retorno.respostaConsultaTabelas.obsSesmt2,
+                        obsSesmt3: retorno.respostaConsultaTabelas.obsSesmt3
+                    });                    
+                }else if(dataForm.type=='cnae'){
+                    setRespostaDadosNR({  
+                        cod_cnae: retorno.respostaConsultaTabelas.codigoCnae[0],
+                        desc_cnae: retorno.respostaConsultaTabelas.descricaoCnae[0],
+                        cnpj: retorno.respostaConsultaTabelas.cnpj,
+                        razaoSocial: retorno.respostaConsultaTabelas.razaoSocial,
+                        nomeFantasia: retorno.respostaConsultaTabelas.nomeFantasia,
+                        grau_risco: retorno.respostaConsultaTabelas.maiorGrauRisco,
+                        nro_trabalhadores: retorno.respostaConsultaTabelas.nroTrabalhadores,
+                        faixa_nro_trabalhadores_sesmt: 'entre ' + retorno.respostaConsultaTabelas.nroTrabalhadoresMinSesmt + ' e ' + retorno.respostaConsultaTabelas.nroTrabalhadoresMaxSesmt,
+                        nro_tecnico_seg: retorno.respostaConsultaTabelas.tecnicoSeg,
+                        nro_engenheiro_seg: retorno.respostaConsultaTabelas.engenheiroSeg,
+                        nro_aux_tec_enfermagem: retorno.respostaConsultaTabelas.auxTecEnfermagem,
+                        nro_enfermeiro: retorno.respostaConsultaTabelas.enfermeiro,
+                        nro_medico: retorno.respostaConsultaTabelas.medico,
+                        faixa_nro_trabalhadores_cipa: 'entre ' + retorno.respostaConsultaTabelas.nroTrabalhadoresMinCipa + ' e ' + retorno.respostaConsultaTabelas.nroTrabalhadoresMaxCipa,
+                        cipa_efetivos: retorno.respostaConsultaTabelas.cipaEfetivos,
+                        cipa_suplentes: retorno.respostaConsultaTabelas.cipaSuplentes,
+                        obsSesmt1: retorno.respostaConsultaTabelas.obsSesmt1,
+                        obsSesmt2: retorno.respostaConsultaTabelas.obsSesmt2,
+                        obsSesmt3: retorno.respostaConsultaTabelas.obsSesmt3
+                    });  
+                }
                 setResponse({
                     type:'success',
                 });
@@ -130,27 +176,6 @@ function ConsultaNR04(){
                     codigo_cnae2: '',
                     numero_trabalhadores: '',
                     type: ''
-                });
-                setRespostaDadosNR({                    
-                    cnpj: retorno.respostaConsultaTabelas.cnpj,
-                    razaoSocial: retorno.respostaConsultaTabelas.razaoSocial,
-                    nomeFantasia: retorno.respostaConsultaTabelas.nomeFantasia,
-                    cod_cnae: retorno.respostaConsultaTabelas.codigoCnaeFiscal,
-                    desc_cnae: retorno.respostaConsultaTabelas.descricaoCnaeFiscal,
-                    grau_risco: retorno.respostaConsultaTabelas.maiorGrauRisco,
-                    nro_trabalhadores: retorno.respostaConsultaTabelas.nroTrabalhadores,
-                    faixa_nro_trabalhadores_sesmt: 'entre ' + retorno.respostaConsultaTabelas.nroTrabalhadoresMinSesmt + ' e ' + retorno.respostaConsultaTabelas.nroTrabalhadoresMaxSesmt,
-                    nro_tecnico_seg: retorno.respostaConsultaTabelas.tecnicoSeg,
-                    nro_engenheiro_seg: retorno.respostaConsultaTabelas.engenheiroSeg,
-                    nro_aux_tec_enfermagem: retorno.respostaConsultaTabelas.auxTecEnfermagem,
-                    nro_enfermeiro: retorno.respostaConsultaTabelas.enfermeiro,
-                    nro_medico: retorno.respostaConsultaTabelas.medico,
-                    faixa_nro_trabalhadores_cipa: 'entre ' + retorno.respostaConsultaTabelas.nroTrabalhadoresMinCipa + ' e ' + retorno.respostaConsultaTabelas.nroTrabalhadoresMaxCipa,
-                    cipa_efetivos: retorno.respostaConsultaTabelas.cipaEfetivos,
-                    cipa_suplentes: retorno.respostaConsultaTabelas.cipaSuplentes,
-                    obsSesmt1: retorno.respostaConsultaTabelas.obsSesmt1,
-                    obsSesmt2: retorno.respostaConsultaTabelas.obsSesmt2,
-                    obsSesmt3: retorno.respostaConsultaTabelas.obsSesmt3
                 });
             }
         }catch(err){  
