@@ -196,7 +196,7 @@ function ConsultaNR05(){
                             <div className='bloco-explicacao'>
                                 <h3 className='titulo-consulta'>NR05</h3>
                                 <p>Esta Norma estabelece os parâmetros e os requisitos da Comissão Interna de Prevenção de Acidentes – CIPA, tendo por objetivo a prevenção de acidentes e doenças relacionadas ao trabalho, de modo a tornar compatível, permanentemente, o trabalho com a preservação da vida e promoção da saúde do trabalhador.</p>
-                                <a target="_blank" href="https://www.gov.br/trabalho-e-previdencia/pt-br/composicao/orgaos-especificos/secretaria-de-trabalho/inspecao/seguranca-e-saude-no-trabalho/normas-regulamentadoras/nr-05-atualizada-2021-1.pdf">&gt; Acesse a norma completa</a>
+                                <a target="_blank" href="https://www.gov.br/trabalho-e-previdencia/pt-br/composicao/orgaos-especificos/secretaria-de-trabalho/inspecao/seguranca-e-saude-no-trabalho/normas-regulamentadoras/nr-05-atualizada-2021-1.pdf"><i class="fa-sharp fa-solid fa-arrow-right"></i> Acesse a norma completa</a>
                             </div>
                         </div>
 
@@ -224,7 +224,7 @@ function ConsultaNR05(){
                                 </div>
                                 
                                 <div className='button-area'>
-                                    <button type="submit" onClick={()=>{dataForm.type='cnpj';setLoading(true);}}>Enviar</button>
+                                    <button type="submit" onClick={()=>{dataForm.type='cnpj';setLoading(true);}}>Consultar</button>
                                 </div>                                
                             </form>
 

@@ -208,7 +208,7 @@ function ConsultaNR04(){
                             <div className='bloco-explicacao'>
                                 <h3 className='titulo-consulta'>NR04</h3>
                                 <p>Esta Norma estabelece os parâmetros e os requisitos para constituição e manutenção dos Serviços Especializados em Segurança e Medicina do Trabalho - SESMT, com a finalidade de promover a saúde e proteger a integridade do trabalhador</p>
-                                <a target="_blank" href="https://www.gov.br/trabalho-e-previdencia/pt-br/composicao/orgaos-especificos/secretaria-de-trabalho/inspecao/seguranca-e-saude-no-trabalho/normas-regulamentadoras/nr-04.pdf">&gt; Acesse a norma completa</a>
+                                <a target="_blank" href="https://www.gov.br/trabalho-e-previdencia/pt-br/composicao/orgaos-especificos/secretaria-de-trabalho/inspecao/seguranca-e-saude-no-trabalho/normas-regulamentadoras/nr-04.pdf"><i class="fa-sharp fa-solid fa-arrow-right"></i> Acesse a norma completa</a>
                             </div>
                         </div>
 
@@ -259,7 +259,7 @@ function ConsultaNR04(){
                                     </div>
                                 </div>
                                 <div className='button-area'>
-                                    <button type="submit" onClick={()=>{dataForm.type='cnae'; setLoading(true);}}>Enviar</button>
+                                    <button type="submit" onClick={()=>{dataForm.type='cnae'; setLoading(true);}}>Consultar</button>
                                 </div>
                             </form>
 

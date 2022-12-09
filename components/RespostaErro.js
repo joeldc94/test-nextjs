@@ -1,6 +1,6 @@
 const RespostaErro = ({dados}) => {
     return(
-        <div className='alert-danger'>
+        <div className='resposta-erro'>
             <p className='error'>{dados.mensagem}</p>
         </div>
     );

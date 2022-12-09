@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Ubuntu:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&');
 
 *{
     margin: 0;
@@ -12,12 +12,15 @@ body{
     display: flex;
     flex-direction: column;
     height: 100vh;
+    min-width: 250px;
 }
 .max-width{
     max-width: 1200px;
     padding: 0 30px;
     margin: auto;
 }
+
+
 .navbar .logo{
     color: white;
     font-size: 35px;
@@ -232,15 +235,16 @@ section{
     text-align: justify;
 }
 
-.contact .contact-content .left a{
-    color:#44B44A;
-    font-weight: 800;
-    padding-top: 20px;;
-    margin-left: 20px;
-    text-decoration: underline;
+.contact .contact-content .left li{
+    list-style: none;
+    font-weight: 400;
     text-align: justify;
 }
 
+.contact .contact-content .left a{
+    color:#44B44A;
+    margin-left: 20px;
+}
 
 .contact .contact-content .left .icons{
     margin: 10px 0;
@@ -305,13 +309,12 @@ section{
     font-weight: 600;
 }
 
-/*
+
 .right .btnCNPJ, .right .btnCNAE{
-    color: white;
-    background: #44B44A;
-    font-weight: 600;
+    color: #333;
+    background: #f2f2f2;
+    font-weight: 400;
 }
-*/
 
 .contact .contact-content .right form .field{
     height: 45px;
@@ -338,9 +341,6 @@ section{
     border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
   }
   
-
-
-
   /* Tooltip text */
   .tooltip .tooltiptext {
     visibility: hidden;
@@ -382,9 +382,6 @@ section{
     visibility: visible;
     opacity: 1;
   }
-
-
-
 
 
 
@@ -454,19 +451,8 @@ section{
     border-style: solid;*/
     margin: 30px 0;
     min-height: 20px;
-
-
 }
-/*
-.contact  .alert-danger{
-    background-color: #f8d7da;
-    color: #842029;
-    
-    border: 1px solid #f5c2c7;
-    border-radius: 6px;
-    padding: 10px;
-}
-*/
+
 .contact  .alert-success{
 
     background-color: #eaf8f2;
@@ -475,18 +461,4 @@ section{
     border: 1px solid #dadbcc;
     border-radius: 6px;
     padding: 20px 10px 20px 30px;
-}
-
-.rodape{
-    color:white;
-    width: 100%;
-    padding: 90px 30px 20px 30px;
-    background-color: #09253C;
-    position: static;
-    bottom: 0;
-    margin-bottom: 0;
-}
-.rodape p{
-    text-align: center;
-    margin: 20px;
 }
