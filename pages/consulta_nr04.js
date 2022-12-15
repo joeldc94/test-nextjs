@@ -48,7 +48,9 @@ function ConsultaNR04(){
         cipa_suplentes: '',
         obsSesmt1: '',
         obsSesmt2: '',
-        obsSesmt3: ''
+        obsSesmt3: '',
+        dispensaPGR: '',
+        porte: ''
     });    
 
     const onChangeInput = e => setDataForm({...dataForm, [e.target.name]: e.target.value});
@@ -142,7 +144,9 @@ function ConsultaNR04(){
                         cipa_suplentes: retorno.respostaConsultaTabelas.cipaSuplentes,
                         obsSesmt1: retorno.respostaConsultaTabelas.obsSesmt1,
                         obsSesmt2: retorno.respostaConsultaTabelas.obsSesmt2,
-                        obsSesmt3: retorno.respostaConsultaTabelas.obsSesmt3
+                        obsSesmt3: retorno.respostaConsultaTabelas.obsSesmt3,
+                        dispensaPGR: retorno.respostaConsultaTabelas.dispensaPGR,
+                        porte: retorno.respostaConsultaTabelas.porte
                     });                    
                 }else if(dataForm.type=='cnae'){
                     setRespostaDadosNR({  

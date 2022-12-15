@@ -42,7 +42,9 @@ function ConsultaNR05(){
         nro_medico: '',
         faixa_nro_trabalhadores_cipa: '',
         cipa_efetivos: '',
-        cipa_suplentes: ''
+        cipa_suplentes: '',
+        dispensaPGR: '',
+        porte: ''
     });
 
     const onChangeInput = e => setDataForm({...dataForm, [e.target.name]: e.target.value});
@@ -131,7 +133,9 @@ function ConsultaNR05(){
                         nro_medico: retorno.respostaConsultaTabelas.medico,
                         faixa_nro_trabalhadores_cipa: 'entre ' + retorno.respostaConsultaTabelas.nroTrabalhadoresMinCipa + ' e ' + retorno.respostaConsultaTabelas.nroTrabalhadoresMaxCipa,
                         cipa_efetivos: retorno.respostaConsultaTabelas.cipaEfetivos,
-                        cipa_suplentes: retorno.respostaConsultaTabelas.cipaSuplentes
+                        cipa_suplentes: retorno.respostaConsultaTabelas.cipaSuplentes,
+                        dispensaPGR: retorno.respostaConsultaTabelas.dispensaPGR,
+                        porte: retorno.respostaConsultaTabelas.porte
                     });
                 }else 
                 if(dataForm.type=='cnae'){

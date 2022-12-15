@@ -66,6 +66,28 @@
     text-align: justify;
 }
 
+.avisoDispensaPGR{
+    margin: 30px 30px 0 30px;
+    padding: 20px;    
+    text-align: center;
+    background-color: rgb(252, 253, 195);
+    border-radius: 5px;
+    border: 2px solid #333;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+}
+.avisoDispensaPGR i{
+    font-size: 28px;
+    color: #0f5132;
+    padding-bottom: 15px;
+    margin: 0;
+}
+.avisoDispensaPGR p{
+    font-size: 14px;
+    padding: 10px;
+    color: #333;
+}
+
+
 @media (max-width: 500px){
     .resposta-erro{
         font-size: 14px;
@@ -103,5 +125,19 @@
     
     .resposta-success table tfoot td{
         font-size: 10px;
+    }
+
+    .avisoDispensaPGR{
+        margin: 10px 10px;
+        padding: 15px 10px;    
+        text-align: center;
+        background-color: rgb(252, 253, 195);
+        border-radius: 5px;
+        border: 2px solid #333;
+        box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+    }
+    .avisoDispensaPGR p{
+        font-size: 12px;
+        padding: 5px;
     }
 }
