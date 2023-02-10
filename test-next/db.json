@@ -2,21 +2,67 @@
     "products": [
     {
         "id": 1,
-        "title": "Product 1",
-        "price": 800,
-        "description": "Description 1"
+        "nome": "Fonte 24Vcc 3A",
+        "categoria": "Fonte",
+        "subcategoria": "CA-CC",
+        "descricao": "Fonte de Alimentação Murr, saída 24Vcc e 3A, entrada 127-240Vca",
+        "quantidade": 1
     },
     {
         "id": 2,
-        "title": "Product 2",
-        "price": 1300,
-        "description": "Description 2"
+        "nome": "Fonte 24Vcc 2,5A",
+        "categoria": "Fontes",
+        "subcategoria": "CA-CC",
+        "descricao": "Fonte de Alimentação Siemens, saída 24Vcc e 2,5A, entrada 127-240Vca",
+        "quantidade": 1
     },
     {
         "id": 3,
-        "title": "Product 3",
-        "price": 2300,
-        "description": "Description 3"
+        "nome": "Contatora 32A",
+        "categoria": "Contatoras",
+        "subcategoria": "Potência",
+        "descricao": "Contatora de Potência Siemens 32A, bobina 220Vca, 3NA + 1 contato NA aux",
+        "quantidade": 4
+    },
+    {
+        "id": 4,
+        "nome": "Borne Duplo Phoenix",
+        "categoria": "Bornes",
+        "subcategoria": "Duplo",
+        "descricao": "Borne Duplo a mola, fio 0,5-4mm²",
+        "quantidade": 88
+    },
+    {
+        "id": 5,
+        "nome": "Borne Duplo Phoenix",
+        "categoria": "Bornes",
+        "subcategoria": "Duplo",
+        "descricao": "Borne Duplo a parafuso, fio 0,5-4mm²",
+        "quantidade": 328
+    },
+    {
+        "id": 6,
+        "nome": "Borne Duplo Phoenix",
+        "categoria": "Bornes",
+        "subcategoria": "Duplo",
+        "descricao": "Borne Duplo a parafuso, fio 4-10mm²",
+        "quantidade": 0
+    },
+    {
+        "id": 7,
+        "nome": "Borne Simples Phoenix",
+        "categoria": "Bornes",
+        "subcategoria": "Simples",
+        "descricao": "Borne Simples a parafuso, fio 4-10mm²",
+        "quantidade": 8
+    },
+    {
+        "id": 8,
+        "nome": "Borne Simples",
+        "categoria": "Bornes",
+        "subcategoria": "Simples",
+        "descricao": "Borne simples a mola, fio 0,25-2,5mm²",
+        "quantidade": 8
     }
     ],
     "news": [
